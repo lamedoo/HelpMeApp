@@ -23,8 +23,8 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
             pb_helpers.setVisibleOrGone(it)
         })
 
-        viewModel.helpersList?.observe(viewLifecycleOwner, Observer {
-                adapter.setHelpersList(it)
+        viewModel.helpersList.observe(viewLifecycleOwner, Observer {
+            adapter.setHelpersList(it)
         })
 
         viewModel.getAllHelpers()

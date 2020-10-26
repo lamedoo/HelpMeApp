@@ -5,23 +5,39 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.lukakordzaia.helpmeapp.network.Result
+import com.lukakordzaia.helpmeapp.network.ServiceBuilder
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelpersRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class HelpersViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = HelpersRepository(application)
-    val showProgress = MutableLiveData<Boolean>()
-    var helpersList : LiveData<List<Helpers>>
+    private val _showProgress = MutableLiveData<Boolean>()
+    private val _helpersList =  MutableLiveData<List<Helpers>>()
+
+    private val repository = HelpersRepository()
+    val showProgress : LiveData<Boolean> = _showProgress
+    val helpersList : LiveData<List<Helpers>> = _helpersList
 
 
-    init {
-        this.helpersList = repository.helpersList
-    }
+
 
     fun getAllHelpers() {
-        if (helpersList.value != null) {
-            showProgress.value = false
+        viewModelScope.launch {
+            val retrofit = repository.getAllHelpers()
+
+            when (retrofit) {
+                is Result.Success -> {
+                    _showProgress.value = false
+                    _helpersList.postValue(retrofit.data)
+                }
+                is Result.Error -> {
+                    _showProgress.value = false
+                    Log.d("error", "error")
+                }
+            }
         }
-        repository.getAllHelpers()
     }
 }
