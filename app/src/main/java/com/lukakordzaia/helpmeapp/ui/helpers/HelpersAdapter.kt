@@ -11,8 +11,7 @@ import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.ui.helperdetails.HelperDetailsFragment
 import kotlinx.android.synthetic.main.rv_helpers_item.view.*
 
-class HelpersAdapter(private val context: Context) :
-    RecyclerView.Adapter<HelpersAdapter.ViewHolder>()
+class HelpersAdapter(private val context: Context) : RecyclerView.Adapter<HelpersAdapter.ViewHolder>()
 {
     private var list: List<Helpers> = ArrayList()
 
@@ -30,12 +29,12 @@ class HelpersAdapter(private val context: Context) :
 
         holder.name.text = listModel.name
         holder.prefLocation.text = listModel.address.city
-//        holder.rootView.setOnClickListener {
-//            val activity = it.context as AppCompatActivity
-//            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HelperDetailsFragment().newInstance(listModel.name)!!)
-//                .addToBackStack(null)
-//                .commit()
-//        }
+        holder.rootView.setOnClickListener {
+            val activity = it.context as AppCompatActivity
+            activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HelperDetailsFragment.newInstance(listModel.name)!!)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun getItemCount(): Int {

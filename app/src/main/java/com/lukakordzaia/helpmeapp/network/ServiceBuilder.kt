@@ -1,25 +1,28 @@
 package com.lukakordzaia.helpmeapp.network
 
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ServiceBuilder {
     private const val URL ="https://jsonplaceholder.typicode.com/"
-    //CREATE HTTP CLIENT
-    private val okHttp = OkHttpClient.Builder()
 
-    //retrofit builder
-    private val builder = Retrofit.Builder().baseUrl(URL)
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(URL)
+        .client(getHttpClient())
         .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttp.build())
+        .build()
 
-    //create retrofit Instance
-    private val retrofit = builder.build()
+    private fun getHttpClient(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
 
-    //we will use this class to create an anonymous inner class function that
-    //implements Country service Interface
-
+        val httpClient = OkHttpClient.Builder()
+        httpClient.addInterceptor(logging)
+        return httpClient.build()
+    }
 
     fun <T> buildService (serviceType :Class<T>):T{
         return retrofit.create(serviceType)
