@@ -1,8 +1,10 @@
 package com.lukakordzaia.helpmeapp.repository
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.lukakordzaia.helpmeapp.network.HelpersNetwork
@@ -25,9 +27,11 @@ class HelpersRepository(val application: Application) {
         val requestCall = destinationService.getHelpers()
             requestCall.enqueue(object : Callback<List<Helpers>>{
             override fun onResponse(call: Call<List<Helpers>>, response: Response<List<Helpers>>) {
+                if (response.isSuccessful) {
                     helpersList.value = response.body()
                     Log.d("response", "${helpersList.value}")
                     showProgress.value = false
+                }
 
             }
 
