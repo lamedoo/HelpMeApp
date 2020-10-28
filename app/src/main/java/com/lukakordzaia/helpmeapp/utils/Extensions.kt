@@ -1,4 +1,4 @@
-package com.lukakordzaia.helpmeapp.ui.helpers
+package com.lukakordzaia.helpmeapp.utils
 
 import android.os.Bundle
 import android.view.View

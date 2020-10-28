@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.home.HomeFragment"
+        android:label="მთავარი"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/helpersFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.helpers.HelpersFragment"
+        android:label="დიასახლისები"
+        tools:layout="@layout/fragment_helpers" >
+        <action
+            android:id="@+id/action_helpersFragment_to_helperDetailsFragment"
+            app:destination="@id/helperDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.orders.OrdersFragment"
+        android:label="შეკვეთები"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.UserProfileFragment"
+        android:label="პროფილი"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/helperDetailsFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.helperdetails.HelperDetailsFragment"
+        android:label="დიასახლისი"
+        tools:layout="@layout/fragment_helper_details">
+        <argument
+            android:name="helperId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>

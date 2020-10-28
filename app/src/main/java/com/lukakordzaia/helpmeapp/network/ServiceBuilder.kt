@@ -14,7 +14,10 @@ import java.util.concurrent.TimeUnit
 object ServiceBuilder {
     private const val URL ="https://jsonplaceholder.typicode.com/"
 
-    private val okHttpClient = OkHttpClient().newBuilder().addInterceptor(getInterceptor()).build()
+    private val okHttpClient = OkHttpClient()
+        .newBuilder()
+        .addInterceptor(getInterceptor())
+        .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(okHttpClient)

@@ -2,10 +2,7 @@ package com.lukakordzaia.helpmeapp.ui.helpers
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.ServiceBuilder
 import com.lukakordzaia.helpmeapp.network.model.Helpers
@@ -13,22 +10,17 @@ import com.lukakordzaia.helpmeapp.repository.HelpersRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class HelpersViewModel(application: Application) : AndroidViewModel(application) {
+class HelpersViewModel() : ViewModel() {
+    private val repository = HelpersRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _helpersList =  MutableLiveData<List<Helpers>>()
 
-    private val repository = HelpersRepository()
     val showProgress : LiveData<Boolean> = _showProgress
     val helpersList : LiveData<List<Helpers>> = _helpersList
 
-
-
-
     fun getAllHelpers() {
         viewModelScope.launch {
-            val retrofit = repository.getAllHelpers()
-
-            when (retrofit) {
+            when (val retrofit = repository.getAllHelpers()) {
                 is Result.Success -> {
                     _showProgress.value = false
                     _helpersList.postValue(retrofit.data)

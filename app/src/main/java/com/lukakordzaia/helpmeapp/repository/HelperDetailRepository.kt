@@ -1,18 +1,16 @@
 package com.lukakordzaia.helpmeapp.repository
 
-
 import com.lukakordzaia.helpmeapp.network.HelpersNetwork
-import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.ServiceBuilder
 import com.lukakordzaia.helpmeapp.network.model.Helpers
+import com.lukakordzaia.helpmeapp.network.Result
 
-
-class HelpersRepository {
+class HelperDetailRepository {
     private val destinationService = ServiceBuilder.buildService(HelpersNetwork::class.java)
 
-    suspend fun getAllHelpers(): Result<List<Helpers>> {
+    suspend fun getSingleHelper(helperId: Int) : Result<Helpers> {
         return try {
-            val response = destinationService.getHelpers()
+            val response = destinationService.getSingleHelper(helperId)
             if (response.isSuccessful) {
                 Result.Success(response.body()!!)
             } else {
@@ -21,7 +19,7 @@ class HelpersRepository {
 
         }
         catch (e: Exception) {
-            Result.Error(e.message ?: "Internet error runs")
+            com.lukakordzaia.helpmeapp.network.Result.Error(e.message ?: "Internet error runs")
         }
     }
 }
