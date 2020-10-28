@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
+                R.id.loginFragment,
                 R.id.homeFragment,
                 R.id.helpersFragment,
                 R.id.ordersFragment,
@@ -59,7 +60,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.fr_nav_host)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 

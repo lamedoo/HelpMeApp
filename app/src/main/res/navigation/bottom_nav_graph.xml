@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -17,7 +17,8 @@
         tools:layout="@layout/fragment_helpers" >
         <action
             android:id="@+id/action_helpersFragment_to_helperDetailsFragment"
-            app:destination="@id/helperDetailsFragment" />
+            app:destination="@id/helperDetailsFragment"
+            app:popUpTo="@id/helpersFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
@@ -38,5 +39,14 @@
             android:name="helperId"
             app:argType="integer"
             android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.login.LoginFragment"
+        android:label="ავტორიზაცია"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

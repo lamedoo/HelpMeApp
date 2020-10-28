@@ -1,9 +1,12 @@
 package com.lukakordzaia.helpmeapp.network
 
 import com.lukakordzaia.helpmeapp.network.model.Helpers
-import retrofit2.Call
+import com.lukakordzaia.helpmeapp.network.model.PostUser
+import com.lukakordzaia.helpmeapp.network.model.UserToken
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface HelpersNetwork {
@@ -13,4 +16,7 @@ interface HelpersNetwork {
 
     @GET ("users/{id}")
     suspend fun getSingleHelper(@Path ("id") id: Int) : Response<Helpers>
+
+    @POST("https://reqres.in/api/login")
+    suspend fun postUserLogin(@Body userLogin: PostUser) : Response<UserToken>
 }

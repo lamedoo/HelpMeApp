@@ -1,16 +1,13 @@
 package com.lukakordzaia.helpmeapp.ui.helpers
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.lukakordzaia.helpmeapp.network.Result
-import com.lukakordzaia.helpmeapp.network.ServiceBuilder
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelpersRepository
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class HelpersViewModel() : ViewModel() {
+class HelpersViewModel : ViewModel() {
     private val repository = HelpersRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _helpersList =  MutableLiveData<List<Helpers>>()
