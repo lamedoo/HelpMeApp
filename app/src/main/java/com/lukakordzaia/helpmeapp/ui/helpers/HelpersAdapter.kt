@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.ui.helperdetails.HelperDetailsFragment
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_helpers_item.view.*
 
 class HelpersAdapter(private val context: Context, private val findNavController: NavController) : RecyclerView.Adapter<HelpersAdapter.ViewHolder>()
@@ -31,8 +32,10 @@ class HelpersAdapter(private val context: Context, private val findNavController
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listModel = list[position]
 
+        Picasso.get().load(listModel.avatar).into(holder.avatar)
         holder.name.text = listModel.name
-        holder.prefLocation.text = listModel.address.city
+        holder.bio.text = listModel.bio
+        holder.price.text = listModel.price.toString() + " ₾"
         holder.rootView.setOnClickListener {
             val bundle = bundleOf("helperId" to listModel.id)
             findNavController.navigate(R.id.action_helpersFragment_to_helperDetailsFragment, bundle)
@@ -45,7 +48,9 @@ class HelpersAdapter(private val context: Context, private val findNavController
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name = view.tv_helper_name!!
-        val prefLocation = view.tv_helper_preferred_location!!
+        val bio = view.tv_helper_bio!!
+        val avatar = view.iv_helper_avatar
+        val price = view.tv_helpers_price
         val rootView = view.item_root
     }
 }

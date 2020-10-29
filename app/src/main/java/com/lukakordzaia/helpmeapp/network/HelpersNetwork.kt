@@ -12,10 +12,10 @@ import retrofit2.http.Path
 
 interface HelpersNetwork {
 
-    @GET ("users")
+    @GET ("https://5f99df9d50d84900163b9290.mockapi.io/users")
     suspend fun getHelpers() : Response<List<Helpers>>
 
-    @GET ("users/{id}")
+    @GET ("https://5f99df9d50d84900163b9290.mockapi.io/users/{id}")
     suspend fun getSingleHelper(@Path ("id") id: Int) : Response<Helpers>
 
     @POST("https://reqres.in/api/login")
