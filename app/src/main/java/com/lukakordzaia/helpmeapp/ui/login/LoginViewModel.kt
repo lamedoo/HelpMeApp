@@ -9,10 +9,11 @@ import androidx.navigation.NavController
 import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.model.PostUser
 import com.lukakordzaia.helpmeapp.repository.LoginRepository
+import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.coroutines.launch
 
 class LoginViewModel() : ViewModel() {
-    private var repository = LoginRepository()
+    private val repository = LoginRepository()
     private val _loginSuccess = MutableLiveData<Boolean>()
     private val _loginError = MutableLiveData<String>()
 
@@ -24,7 +25,7 @@ class LoginViewModel() : ViewModel() {
             when (val retrofit = repository.postUserLogin(user)) {
                 is Result.Success -> {
                     _loginSuccess.value = true
-                    Log.d("login", "${retrofit.data}")
+                    AppPreferences.user_token = retrofit.data.token
                 }
                 is Result.Error -> {
                     _loginSuccess.value = false

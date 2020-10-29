@@ -11,8 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="0dp"
+        android:fontFamily="@font/georgian_uppercase"
         app:titleTextColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:titleTextAppearance="@style/TitleBarTextAppearance"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="დიასახლისი"/>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.lukakordzaia.helpmeapp.repository.HelperDetailRepository
 import com.lukakordzaia.helpmeapp.network.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HelperDetailsViewModel(application: Application) : AndroidViewModel(application) {

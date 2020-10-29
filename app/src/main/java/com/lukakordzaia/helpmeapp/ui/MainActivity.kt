@@ -21,6 +21,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.helpers.HelpersFragment
 import com.lukakordzaia.helpmeapp.ui.helpers.HelpersViewModel
+import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import com.lukakordzaia.helpmeapp.utils.setGone
 import com.lukakordzaia.helpmeapp.utils.setVisible
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,8 +37,10 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AppPreferences.init(this)
         appToolbar = findViewById(R.id.app_main_toolbar)
         setSupportActionBar(appToolbar)
+
 
         setupViews()
     }

@@ -47,8 +47,4 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         (activity as MainActivity).hideBottomNavigation()
     }
 
-    override fun onDetach() {
-        (activity as MainActivity).showBottomNavigation()
-        super.onDetach()
-    }
 }
