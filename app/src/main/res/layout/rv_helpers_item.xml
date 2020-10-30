@@ -7,6 +7,7 @@
     android:id="@+id/item_root"
     app:cardBackgroundColor="@color/white"
     android:layout_margin="8dp"
+    app:cardElevation="0dp"
     app:cardCornerRadius="5dp">
 
     <LinearLayout
@@ -65,28 +66,23 @@
             android:layout_width="match_parent"
             android:layout_height="100dp">
 
-            <ImageView
-                android:id="@+id/iv_helpers_rating_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:src="@drawable/helper_rating_icon"
-                app:tint="@color/yellow"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-
             <TextView
                 android:id="@+id/tv_helpers_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:paddingLeft="25dp"
                 android:text="5"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:textSize="20sp"
+                android:background="@color/yellow"
+                android:gravity="center_vertical"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/iv_helpers_rating_icon"/>
+                app:layout_constraintRight_toLeftOf="@id/tv_helpers_price"
+                app:drawableLeftCompat="@drawable/helper_rating_icon"
+                app:drawableTint="@color/white"
+                android:drawablePadding="5dp"/>
 
             <TextView
                 android:id="@+id/tv_helpers_price"

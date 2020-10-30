@@ -31,14 +31,15 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private lateinit var appToolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         AppPreferences.init(this)
-        appToolbar = findViewById(R.id.app_main_toolbar)
+
+        val appToolbar: MaterialToolbar = findViewById(R.id.app_main_toolbar)
         setSupportActionBar(appToolbar)
 
 
@@ -46,9 +47,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        var navHostFragment = supportFragmentManager.findFragmentById(R.id.fr_nav_host) as NavHostFragment
-        navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fr_nav_host) as NavHostFragment
+        navController  = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.bottom_nav_graph)
         NavigationUI.setupWithNavController(nav_main_bottom, navController)
+
+        if (AppPreferences.user_token.isNotEmpty()) {
+            navGraph.startDestination = R.id.homeFragment
+        } else {
+            navGraph.startDestination = R.id.loginFragment
+        }
+        navController.graph = navGraph
 
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(

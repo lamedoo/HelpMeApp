@@ -15,5 +15,11 @@ data class Helpers(
     @SerializedName("bio")
     val bio: String,
     @SerializedName("price")
-    val price: Int
+    val price: Int,
+    @SerializedName("rating")
+    val rating: Int,
+    @SerializedName("city")
+    val city: String,
+    @SerializedName("address")
+    val address: String
 )

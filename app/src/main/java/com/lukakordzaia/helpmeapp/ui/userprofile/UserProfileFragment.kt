@@ -1,5 +1,6 @@
 package com.lukakordzaia.helpmeapp.ui.userprofile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,7 +31,9 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
         btn_user_profile_logout.setOnClickListener {
             viewModel.removeSaveToken()
-            findNavController().navigate(R.id.action_userProfileFragment_to_loginFragment)
+            val intent = Intent(context, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
     }
 }

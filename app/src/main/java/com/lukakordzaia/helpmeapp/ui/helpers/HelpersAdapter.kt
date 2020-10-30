@@ -36,6 +36,7 @@ class HelpersAdapter(private val context: Context, private val findNavController
         holder.name.text = listModel.name
         holder.bio.text = listModel.bio
         holder.price.text = listModel.price.toString() + " ₾"
+        holder.rating.text = listModel.rating.toString()
         holder.rootView.setOnClickListener {
             val bundle = bundleOf("helperId" to listModel.id)
             findNavController.navigate(R.id.action_helpersFragment_to_helperDetailsFragment, bundle)
@@ -49,8 +50,9 @@ class HelpersAdapter(private val context: Context, private val findNavController
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name = view.tv_helper_name!!
         val bio = view.tv_helper_bio!!
-        val avatar = view.iv_helper_avatar
-        val price = view.tv_helpers_price
-        val rootView = view.item_root
+        val avatar = view.iv_helper_avatar!!
+        val price = view.tv_helpers_price!!
+        val rating = view.tv_helpers_rating!!
+        val rootView = view.item_root!!
     }
 }
