@@ -2,6 +2,7 @@ package com.lukakordzaia.helpmeapp.ui.helperdetails
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.Observer
@@ -43,8 +44,8 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
         (activity as MainActivity).hideBottomNavigation()
     }
 
-    override fun onDetach() {
-        (activity as MainActivity).showBottomNavigation()
-        super.onDetach()
-    }
+//    override fun onDetach() {
+//        (activity as MainActivity).showBottomNavigation()
+//        super.onDetach()
+//    }
 }

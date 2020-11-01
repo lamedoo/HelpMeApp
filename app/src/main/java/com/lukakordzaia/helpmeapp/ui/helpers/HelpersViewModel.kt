@@ -29,4 +29,18 @@ class HelpersViewModel : ViewModel() {
             }
         }
     }
+
+    fun getHelpersByRating() {
+        val data = helpersList.value?.sortedByDescending {
+            it.rating
+        }
+        _helpersList.value = data
+    }
+
+    fun getHelpersByPrice() {
+        var data = helpersList.value?.sortedWith(compareBy {
+            it.price
+        })
+        _helpersList.value = data
+    }
 }

@@ -53,6 +53,6 @@ class HelpersAdapter(private val context: Context, private val findNavController
         val avatar = view.iv_helper_avatar!!
         val price = view.tv_helpers_price!!
         val rating = view.tv_helpers_rating!!
-        val rootView = view.item_root!!
+        val rootView = view.helpers_item_root!!
     }
 }

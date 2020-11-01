@@ -4,10 +4,6 @@
         android:title="Home"
         android:icon="@drawable/bottom_nav_home"/>
 
-    <item android:id="@+id/helpersFragment"
-        android:title="Helpers"
-        android:icon="@drawable/bottom_nav_helpers"/>
-
     <item android:id="@+id/ordersFragment"
         android:title="Orders"
         android:icon="@drawable/bottom_nav_orders"/>

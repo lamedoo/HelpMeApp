@@ -1,15 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    tools:background="@color/lightGrey">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_main_chooseHelpers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="მთავარი გვერდი" />
+        android:layout_height="200dp"
+        android:layout_marginTop="70dp"
+        android:paddingLeft="20dp"
+        android:background="@drawable/main_helpers_button_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/iv_main_helpers_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/main_frag_cleaning"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_main_helpers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="დალაგება"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/georgian_uppercase"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_main_helpers_icon"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="აირჩიე შენზე მორგებული დიასახლისი"
+            android:textSize="20sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_main_helpers"
+            app:layout_constraintStart_toEndOf="@id/iv_main_helpers_icon"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/best_helpers_background"
+        app:layout_constraintTop_toBottomOf="@id/btn_main_chooseHelpers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tv_top_helpers_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="დიასახლისები მაღლი რეიტინგით"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_top_helpers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            app:layout_constraintTop_toBottomOf="@id/tv_top_helpers_title"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

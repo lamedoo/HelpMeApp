@@ -3,13 +3,21 @@ package com.lukakordzaia.helpmeapp.ui.home
 import android.content.ClipData
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
+import com.lukakordzaia.helpmeapp.ui.helpers.HelpersAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var adapter: HomeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +26,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).showBottomNavigation()
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        adapter = HomeAdapter(requireContext(), findNavController())
+        rv_top_helpers.adapter = adapter
+
+        btn_main_chooseHelpers.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_helpersFragment)
+        }
+
+        viewModel.topHelpersList.observe(viewLifecycleOwner, Observer {
+            adapter.setTopHelpersList(it)
+        })
+
+        viewModel.getTopHelpers()
 
     }
 
@@ -29,8 +51,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var id = item.itemId
         if (id == R.id.home_settings) {
-            Toast.makeText(context, "Settings", Toast.LENGTH_LONG).show();
-            return true;
+            findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+            return true
         }
 
         return super.onOptionsItemSelected(item)

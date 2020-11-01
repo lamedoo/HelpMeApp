@@ -25,6 +25,7 @@ import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import com.lukakordzaia.helpmeapp.utils.setGone
 import com.lukakordzaia.helpmeapp.utils.setVisible
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,11 +34,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        AppPreferences.init(this)
+        if (!AppPreferences.dark_mode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        AppPreferences.init(this)
 
         val appToolbar: MaterialToolbar = findViewById(R.id.app_main_toolbar)
         setSupportActionBar(appToolbar)
@@ -63,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             topLevelDestinationIds = setOf(
                 R.id.loginFragment,
                 R.id.homeFragment,
-                R.id.helpersFragment,
                 R.id.ordersFragment,
                 R.id.userProfileFragment
             )
