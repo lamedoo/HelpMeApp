@@ -30,13 +30,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 val intent = Intent(context, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                Toast.makeText(context, "Dark Theme Activated", Toast.LENGTH_SHORT).show()
             } else {
                 AppPreferences.dark_mode = false
                 val intent = Intent(context, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                Toast.makeText(context, "Dark Theme Deactivated", Toast.LENGTH_SHORT).show()
             }
         }
     }

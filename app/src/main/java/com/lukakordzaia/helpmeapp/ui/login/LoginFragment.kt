@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.model.PostUser
 import com.lukakordzaia.helpmeapp.ui.MainActivity
+import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -21,6 +22,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (AppPreferences.user_token.isNotEmpty()) {
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+
+
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         login_button.setOnClickListener {

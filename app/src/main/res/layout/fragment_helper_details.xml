@@ -1,102 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="8dp"
-    android:padding="10dp"
-    android:background="@drawable/best_helpers_background"
+    tools:background="@color/lightGrey"
     tools:context=".ui.helperdetails.HelperDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/helper_details_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/best_helpers_background"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_helper_details_avatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/user_profile_placeholder"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/helper_details_top_inner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_helper_details_avatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/user_profile_placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_helper_detail_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_helper_details_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="HELPER NAME" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_helper_detail_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_helper_details_jobCount"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/helpers_item_jobcount_background"
+            app:drawableLeftCompat="@drawable/helper_jobcount_icon"
+            app:drawableTint="#a82800"
+            android:drawablePadding="5dp"
+            android:minWidth="70dp"
+            android:paddingLeft="13dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="5"
+            android:textColor="#a82800"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:layout_marginLeft="20dp"
-            tools:text="HELPER NAME"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_helper_details_bio"
+            app:layout_constraintEnd_toStartOf="@+id/tv_helper_details_rating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/helper_details_top_inner"
+            app:layout_constraintVertical_bias="0.007" />
+
+        <TextView
+            android:id="@+id/tv_helper_details_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/helpers_item_rating_background"
+            android:drawablePadding="5dp"
+            android:minWidth="70dp"
+            android:paddingLeft="13dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="5"
+            android:textColor="#b09e00"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/helper_rating_icon"
+            app:drawableTint="#b09e00"
+            app:layout_constraintBottom_toTopOf="@id/tv_helper_details_bio"
+            app:layout_constraintEnd_toStartOf="@+id/tv_helper_details_price"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_helper_details_jobCount"
+            app:layout_constraintTop_toBottomOf="@id/helper_details_top_inner"
+            app:layout_constraintVertical_bias="0.007" />
+
+        <TextView
+            android:id="@+id/tv_helper_details_price"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/helpers_item_price_background"
+            android:gravity="center"
+            android:minWidth="70dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="--"
+            android:textColor="#55822e"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_helper_details_bio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_helper_details_rating"
+            app:layout_constraintTop_toBottomOf="@id/helper_details_top_inner"
+            app:layout_constraintVertical_bias="0.007"
+            tools:text="100 ₾" />
+
+        <TextView
+            android:id="@+id/tv_helper_details_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_helper_details_avatar"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            tools:text="This is the bio and I am just making it longer to see how
+        it will fit the screen. And I must say that it doesn't look too bad." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tv_helpers_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/helpers_item_rating_background"
-        android:drawablePadding="5dp"
-        android:minWidth="70dp"
-        android:paddingLeft="13dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="5"
-        android:textColor="#b09e00"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:drawableLeftCompat="@drawable/helper_rating_icon"
-        app:drawableTint="#b09e00"
-        app:layout_constraintTop_toBottomOf="@id/helper_details_top"
-        app:layout_constraintBottom_toTopOf="@id/tv_helper_details_bio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/tv_helper_details_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/helpers_item_price_background"
-        android:gravity="center"
-        android:minWidth="70dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="--"
-        android:textColor="#55822e"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/helper_details_top"
-        app:layout_constraintBottom_toTopOf="@id/tv_helper_details_bio"
-        tools:text="100 ₾" />
-
-    <TextView
-        android:id="@+id/tv_helper_details_bio"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/helper_details_reviews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="This is the bio and I am just making it longer to see how
-        it will fit the screen. And I must say that it doesn't look too bad."
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/best_helpers_background"
+        app:layout_constraintTop_toBottomOf="@id/helper_details_top">
+
+        <TextView
+            android:id="@+id/helper_details_reviews_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="შეფასებები"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/georgian_uppercase"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="ჯერ შეფასებები არ არის"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/helper_details_reviews_title"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/pb_helper_detail"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_helper_details_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_700"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:text="შეკვეთა"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/georgian_uppercase"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

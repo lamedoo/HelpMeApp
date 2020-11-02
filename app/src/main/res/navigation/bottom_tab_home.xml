@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_tab_home"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.home.HomeFragment"
+        android:label="მთავარი"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_helpersFragment"
+            app:destination="@id/helpersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_helperDetailsFragment"
+            app:destination="@id/helperDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_helperDetailsFragment2"
+            app:destination="@id/helperDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpersFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.helpers.HelpersFragment"
+        android:label="დიასახლისები"
+        tools:layout="@layout/fragment_helpers" >
+        <action
+            android:id="@+id/action_helpersFragment_to_helperDetailsFragment"
+            app:destination="@id/helperDetailsFragment"
+            app:popUpTo="@id/helpersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helperDetailsFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.helperdetails.HelperDetailsFragment"
+        android:label="დიასახლისი"
+        tools:layout="@layout/fragment_helper_details">
+        <argument
+            android:name="helperId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.settings.SettingsFragment"
+        android:label="პარამეტრები"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.login.LoginFragment"
+        android:label="ავტორიზაცია"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

@@ -43,4 +43,11 @@ class HelpersViewModel : ViewModel() {
         })
         _helpersList.value = data
     }
+
+    fun filterWithSearch(searchWord: String) {
+        var data = helpersList.value?.filter {
+            it.name.contains(searchWord, true)
+        }
+        _helpersList.value = data
+    }
 }
