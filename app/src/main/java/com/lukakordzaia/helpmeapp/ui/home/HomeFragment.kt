@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.lukakordzaia.helpmeapp.ui.helpers.HelpersAdapter
+import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -34,6 +35,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         btn_main_chooseHelpers.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_helpersFragment)
         }
+
+        viewModel.showProgress.observe(viewLifecycleOwner, Observer {
+            pb_top_helpers.setVisibleOrGone(it)
+        })
 
         viewModel.topHelpersList.observe(viewLifecycleOwner, Observer {
             adapter.setTopHelpersList(it)

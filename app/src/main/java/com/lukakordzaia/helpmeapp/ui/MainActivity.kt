@@ -3,10 +3,12 @@ package com.lukakordzaia.helpmeapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.MediaController
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.MotionEventCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    private fun setupViews() {
+//    private fun setBottomNav() {
 //        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fr_nav_host) as NavHostFragment
 //        navController  = navHostFragment.navController
 //        val navGraph = navController.navInflater.inflate(R.navigation.bottom_nav_graph)
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginFragment,
                 R.id.homeFragment,
                 R.id.ordersFragment,
-                R.id.userProfileFragment
+                R.id.userProfileFragment,
             )
         )
 
@@ -109,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     override fun onSupportNavigateUp(): Boolean {
-        return currentNavController.value?.navigateUp() ?: false
+        return currentNavController.value?.navigateUp() ?: false || super.onSupportNavigateUp()
     }
 
     fun showBottomNavigation() {

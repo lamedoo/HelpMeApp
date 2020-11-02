@@ -12,16 +12,16 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_helpersFragment"
-            app:destination="@id/helpersFragment" />
+            app:destination="@id/helpersFragment"
+            app:popUpTo="@id/homeFragment"/>
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/homeFragment"/>
         <action
             android:id="@+id/action_homeFragment_to_helperDetailsFragment"
-            app:destination="@id/helperDetailsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_helperDetailsFragment2"
-            app:destination="@id/helperDetailsFragment" />
+            app:destination="@id/helperDetailsFragment"
+            app:popUpTo="@id/homeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/helpersFragment"

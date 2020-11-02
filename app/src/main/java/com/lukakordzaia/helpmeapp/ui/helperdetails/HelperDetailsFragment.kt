@@ -61,6 +61,10 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
             tv_helper_details_rating.text = it.toString()
         })
 
+        viewModel.helperJobsDone.observe(viewLifecycleOwner, Observer {
+            tv_helper_details_jobCount.text = it.toString()
+        })
+
         btn_helper_details_order.setOnClickListener {
             Toast.makeText(context, "Thank you for ordering", Toast.LENGTH_SHORT).show()
         }

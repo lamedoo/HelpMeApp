@@ -18,6 +18,8 @@ data class Helpers(
     val price: Int,
     @SerializedName("rating")
     val rating: Int,
+    @SerializedName("jobs_done")
+    val jobs_done: Int,
     @SerializedName("city")
     val city: String,
     @SerializedName("address")

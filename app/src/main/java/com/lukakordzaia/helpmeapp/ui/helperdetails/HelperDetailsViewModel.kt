@@ -20,6 +20,7 @@ class HelperDetailsViewModel(application: Application) : AndroidViewModel(applic
     private val _helperBio = MutableLiveData<String>()
     private val _helperPrice = MutableLiveData<Int>()
     private val _helperRating = MutableLiveData<Int>()
+    private val _helperJobsDone = MutableLiveData<Int>()
 
     val showProgress : LiveData<Boolean> = _showProgress
     val showContent: LiveData<Boolean> = _showContent
@@ -28,6 +29,7 @@ class HelperDetailsViewModel(application: Application) : AndroidViewModel(applic
     val helperBio : LiveData<String> = _helperBio
     val helperPrice : LiveData<Int> = _helperPrice
     val helperRating : LiveData<Int> = _helperRating
+    val helperJobsDone : LiveData<Int> = _helperJobsDone
 
     init {
         _showContent.value = false
@@ -44,6 +46,7 @@ class HelperDetailsViewModel(application: Application) : AndroidViewModel(applic
                     _helperBio.value = retrofit.data.bio
                     _helperPrice.value = retrofit.data.price
                     _helperRating.value = retrofit.data.rating
+                    _helperJobsDone.value = retrofit.data.jobs_done
                 }
                 is Result.Error -> {
                     _showProgress.value = false
