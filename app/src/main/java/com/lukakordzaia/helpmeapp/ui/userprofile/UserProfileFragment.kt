@@ -21,12 +21,20 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
-        viewModel.userAvatar.observe(viewLifecycleOwner, Observer {
-            Picasso.get().load(it).into(iv_user_profile_avatar)
-        })
+//        viewModel.userAvatar.observe(viewLifecycleOwner, Observer {
+//            Picasso.get().load(it).into(iv_user_profile_avatar)
+//        })
 
         viewModel.userFullName.observe(viewLifecycleOwner, Observer {
             tv_user_profile_name.text = it
+        })
+
+        viewModel.userEmail.observe(viewLifecycleOwner, Observer {
+            tv_user_profile_email.text = it
+        })
+
+        viewModel.userNumber.observe(viewLifecycleOwner, Observer {
+            tv_user_profile_number.text = it
         })
 
         btn_user_profile_logout.setOnClickListener {

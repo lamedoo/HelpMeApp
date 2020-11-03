@@ -29,6 +29,70 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_name_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="სახელი"
+        app:hintTextColor="@color/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_email_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_register_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_lastName_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="გვარი"
+        app:hintTextColor="@color/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_name_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_register_lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_phone_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="მობილურის ნომერი"
+        app:hintTextColor="@color/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_lastName_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_register_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_password_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,10 +100,10 @@
         app:hintTextColor="@color/colorPrimary"
         app:boxStrokeColor="@color/colorPrimary"
         app:endIconMode="password_toggle"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_email_container">
+        app:layout_constraintTop_toBottomOf="@id/register_phone_container">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tv_register_password"

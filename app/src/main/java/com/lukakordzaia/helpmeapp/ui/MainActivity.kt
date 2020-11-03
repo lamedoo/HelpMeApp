@@ -1,43 +1,21 @@
 package com.lukakordzaia.helpmeapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
-import android.widget.MediaController
-import android.widget.Toast
-import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.MotionEventCompat
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.lukakordzaia.helpmeapp.R
-import com.lukakordzaia.helpmeapp.ui.helpers.HelpersFragment
-import com.lukakordzaia.helpmeapp.ui.helpers.HelpersViewModel
 import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import com.lukakordzaia.helpmeapp.utils.setGone
 import com.lukakordzaia.helpmeapp.utils.setVisible
 import com.lukakordzaia.helpmeapp.utils.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_settings.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 //    private lateinit var navController: NavController
@@ -46,9 +24,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppPreferences.init(this)
         if (!AppPreferences.dark_mode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
