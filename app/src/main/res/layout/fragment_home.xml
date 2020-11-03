@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    tools:background="@color/lightGrey">
+    tools:background="?colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_main_chooseHelpers"
@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="აირჩიე შენზე მორგებული დიასახლისი"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_main_helpers"

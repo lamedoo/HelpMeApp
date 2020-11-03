@@ -13,6 +13,7 @@
         android:elevation="0dp"
         android:background="?colorPrimary"
         android:fontFamily="@font/georgian_uppercase"
+        android:fillColor="?attr/colorControlNormal"
         app:titleTextColor="?colorOnPrimary"
         app:titleTextAppearance="@style/TitleBarTextAppearance"
         app:layout_constraintTop_toTopOf="parent"

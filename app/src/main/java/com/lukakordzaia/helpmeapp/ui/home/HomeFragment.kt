@@ -2,6 +2,8 @@ package com.lukakordzaia.helpmeapp.ui.home
 
 import android.content.ClipData
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.*
