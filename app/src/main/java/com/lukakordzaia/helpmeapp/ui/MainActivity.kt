@@ -24,6 +24,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.helpers.HelpersFragment
 import com.lukakordzaia.helpmeapp.ui.helpers.HelpersViewModel

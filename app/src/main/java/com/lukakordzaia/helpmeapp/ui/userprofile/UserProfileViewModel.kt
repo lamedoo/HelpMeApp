@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.repository.UserProfileRepository
 import com.lukakordzaia.helpmeapp.utils.AppPreferences
@@ -24,6 +26,7 @@ class UserProfileViewModel: ViewModel() {
 
     fun removeSaveToken() {
         AppPreferences.user_token = ""
+        Firebase.auth.signOut()
     }
 
     fun getUserProfile(userId: Int) {

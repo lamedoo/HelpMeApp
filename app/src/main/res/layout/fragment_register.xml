@@ -5,24 +5,13 @@
     android:layout_height="match_parent"
     android:layout_margin="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.login.LoginFragment">
-
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="გთხვოთ, გაიაროთ ავტორიზაცია"
-        android:textSize="20sp"
-        android:textColor="?colorOnPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+    tools:context=".ui.login.RegisterFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_email_container"
+        android:id="@+id/register_email_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="100dp"
         android:hint="ელ-ფოსტა"
         app:hintTextColor="@color/colorPrimary"
         app:boxStrokeColor="@color/colorPrimary"
@@ -31,9 +20,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_login_email"
+            android:id="@+id/tv_register_email"
             android:layout_width="match_parent"
-            android:text="kordzaialuka@gmail.com"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
             android:singleLine="true"/>
@@ -41,7 +29,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_password_container"
+        android:id="@+id/register_password_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="პაროლი"
@@ -51,13 +39,12 @@
         android:layout_marginTop="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_email_container">
+        app:layout_constraintTop_toBottomOf="@id/register_email_container">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_login_password"
+            android:id="@+id/tv_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Barcelona12."
             android:inputType="textPassword"
             android:imeOptions="actionDone"
             android:maxLines="1"/>
@@ -66,28 +53,11 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorPrimary"
-        android:fontFamily="@font/georgian_uppercase"
-        android:textAllCaps="false"
-        android:text="შესვლა"
-        android:textSize="20sp"
-        android:padding="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_password_container"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_goto_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="?colorSecondaryVariant"
         android:fontFamily="@font/georgian_uppercase"
         android:textAllCaps="false"
         android:text="რეგისტრაცია"
@@ -97,15 +67,6 @@
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/main_logo"
-        app:layout_constraintTop_toBottomOf="@id/btn_goto_register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/register_password_container"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

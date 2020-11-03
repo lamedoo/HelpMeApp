@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "410592814618",
+    "firebase_url": "https://saxlisdalageba-app.firebaseio.com",
+    "project_id": "saxlisdalageba-app",
+    "storage_bucket": "saxlisdalageba-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410592814618:android:453431a47ca0a6954953a3",
+        "android_client_info": {
+          "package_name": "com.lukakordzaia.helpmeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410592814618-nqqns2dch0mi6vq7lhh5mu501cg3d1fj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lukakordzaia.helpmeapp",
+            "certificate_hash": "72095c0302e3ad319e8b2d2a34884896bed192cd"
+          }
+        },
+        {
+          "client_id": "410592814618-vmq9dtng3t3ulstmve3ccca706bslcfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhh7icXLxaz7DpKOjUtwFK6Oqx2fBs8EY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410592814618-vmq9dtng3t3ulstmve3ccca706bslcfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
