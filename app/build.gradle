@@ -7,6 +7,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        AppSignature {
+            storeFile file('D:\\Onedrive\\Android KeyStores\\androidKeyStores.jks')
+            storePassword 'Irmisnaxtomi12.'
+            keyAlias 'lukakordzaia'
+            keyPassword 'Irmisnaxtomi12.'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
