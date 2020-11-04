@@ -21,18 +21,22 @@ import kotlinx.coroutines.launch
 
 class UserProfileViewModel: ViewModel() {
     private val repository = UserProfileRepository()
-
+    private val _showProgress = MutableLiveData<Boolean>()
+    private val _showContent = MutableLiveData<Boolean>()
     private val  _userFullName = MutableLiveData<String>()
     private val _userEmail = MutableLiveData<String>()
     private val _userAvatar = MutableLiveData<String>()
     private val _userNumber = MutableLiveData<String>()
 
+    val showProgress: LiveData<Boolean> = _showProgress
+    val showContent: LiveData<Boolean> = _showContent
     val userFullName: LiveData<String> = _userFullName
     val userEmail: LiveData<String> = _userEmail
     val userNumber: LiveData<String> = _userNumber
     val userAvatar: LiveData<String> = _userAvatar
 
     init {
+        _showContent.value = false
         addUserChangeListener()
     }
 
@@ -50,9 +54,14 @@ class UserProfileViewModel: ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java) ?: return
 
+                _showProgress.value = false
+                _showContent.value = true
+                _userAvatar.value = user.avatar
                 _userFullName.value = "${user.name} ${user.lastName}"
                 _userEmail.value = user.email
                 _userNumber.value = user.phone
+
+                Log.d("avatarLink", "${user.avatar}")
 
             }
 
