@@ -20,7 +20,7 @@ class HelpersViewModel : ViewModel() {
             when (val retrofit = repository.getAllHelpers()) {
                 is Result.Success -> {
                     _showProgress.value = false
-                    _helpersList.postValue(retrofit.data)
+                    _helpersList.value = retrofit.data
                 }
                 is Result.Error -> {
                     _showProgress.value = false

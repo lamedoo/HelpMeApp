@@ -1,20 +1,43 @@
 package com.lukakordzaia.helpmeapp.ui.userprofile
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
+import com.lukakordzaia.helpmeapp.network.model.User
+import com.lukakordzaia.helpmeapp.repository.UserProfileRepository
+import kotlinx.coroutines.launch
 
 class UserProfileEditViewModel : ViewModel() {
-    private val _editName = MutableLiveData<String>()
-    private val _editLastName = MutableLiveData<String>()
-    private val _editEmail = MutableLiveData<String>()
-    private val _editNumber = MutableLiveData<String>()
+    private val repository = UserProfileRepository()
+    private val _userDataList = MutableLiveData<User>()
 
-    val editName: LiveData<String> = _editName
-    val editLastName: LiveData<String> = _editLastName
-    val editEmail: LiveData<String> = _editEmail
-    val editNumber: LiveData<String> = _editNumber
+    val userDataList: LiveData<User> = _userDataList
+
+    init {
+        addUserChangeListener()
+    }
+
+
+    private fun addUserChangeListener(){
+        val currentUser = Firebase.auth.currentUser?.uid
+
+        repository.getUserData(currentUser!!, object: FirebaseCallBack {
+            override fun onCallback(userData: MutableMap<String, Any>) {
+                _userDataList.value = User(
+                    "${userData.get("avatar")}",
+                    "${userData.get("email")}",
+                    "${userData.get("name")}",
+                    " ${userData.get("lastName")}",
+                    "${userData.get("phone")}"
+                )
+            }
+        })
+    }
 
 }

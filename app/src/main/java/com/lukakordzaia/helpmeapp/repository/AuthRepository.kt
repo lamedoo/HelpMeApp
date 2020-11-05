@@ -2,10 +2,9 @@ package com.lukakordzaia.helpmeapp.repository
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.model.User
 import kotlinx.coroutines.tasks.await
 
@@ -32,9 +31,11 @@ class AuthRepository {
         return try {
             val data = auth.createUserWithEmailAndPassword(email, password).await()
             val uid = data.user?.uid
-            dbReference = FirebaseDatabase.getInstance().getReference("Users")
+            val db = Firebase.firestore
             val user = User(avatar = null, email, name, lastName, number)
-            dbReference.child(uid!!).setValue(user)
+
+            db.collection("users").document(uid!!).set(user)
+
             data
         } catch (e : Exception) {
             null

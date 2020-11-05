@@ -5,7 +5,6 @@ sealed class Result<out T: Any> {
     data class Error(val exception: String) : Result<Nothing>()
 }
 
-sealed class FirebaseResult<out T: Any> {
-    data class Success<out T : Any>(val data: T) : FirebaseResult<T>()
-    data class Error(val exception: String) : FirebaseResult<Nothing>()
+interface FirebaseCallBack {
+    fun onCallback(userData: MutableMap<String, Any>)
 }

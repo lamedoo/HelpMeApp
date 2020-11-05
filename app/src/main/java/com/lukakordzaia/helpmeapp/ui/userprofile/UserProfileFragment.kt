@@ -1,16 +1,19 @@
 package com.lukakordzaia.helpmeapp.ui.userprofile
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
-import android.widget.Toast
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
-import com.lukakordzaia.helpmeapp.utils.setGone
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -27,10 +30,6 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
-//        viewModel.userAvatar.observe(viewLifecycleOwner, Observer {
-//            Picasso.get().load(it).into(iv_user_profile_avatar)
-//        })
-
         viewModel.showContent.observe(viewLifecycleOwner, Observer {
             user_profile_top_container.setVisibleOrGone(it)
             user_profile_bottom_container.setVisibleOrGone(it)
@@ -40,16 +39,15 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             pb_user_profile.setVisibleOrGone(it)
         })
 
-        viewModel.userFullName.observe(viewLifecycleOwner, Observer {
-            tv_user_profile_name.text = it
-        })
 
-        viewModel.userEmail.observe(viewLifecycleOwner, Observer {
-            tv_user_profile_email.text = it
-        })
-
-        viewModel.userNumber.observe(viewLifecycleOwner, Observer {
-            tv_user_profile_number.text = it
+        viewModel.userDataList.observe(viewLifecycleOwner, Observer {
+            if (!it.avatar.equals("null")) {
+                Picasso.get().load(it.avatar).into(iv_user_profile_avatar)
+            }
+            Log.d(TAG, "${it.avatar}")
+            tv_user_profile_name.text = "${it.name}" + "${it.lastName}"
+            tv_user_profile_email.text = it.email
+            tv_user_profile_number.text = it.phone
         })
     }
 
