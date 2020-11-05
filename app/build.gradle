@@ -53,7 +53,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.fragment:fragment-ktx:1.2.5"
-    implementation 'com.google.firebase:firebase-database:19.2.1'
 
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
@@ -83,7 +82,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.0'
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'com.squareup.picasso:picasso:2.71828'

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).showBottomNavigation()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        adapter = HomeAdapter(requireContext(), findNavController())
+        adapter = HomeAdapter(requireContext()) {
+            val bundle = bundleOf("helperId" to it)
+            findNavController().navigate(R.id.action_homeFragment_to_helperDetailsFragment, bundle)
+        }
         rv_top_helpers.adapter = adapter
 
         btn_main_chooseHelpers.setOnClickListener {

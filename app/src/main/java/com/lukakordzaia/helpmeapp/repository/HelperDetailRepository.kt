@@ -19,7 +19,7 @@ class HelperDetailRepository {
 
         }
         catch (e: Exception) {
-            com.lukakordzaia.helpmeapp.network.Result.Error(e.message ?: "Internet error runs")
+            Result.Error(e.message ?: "Internet error runs")
         }
     }
 }

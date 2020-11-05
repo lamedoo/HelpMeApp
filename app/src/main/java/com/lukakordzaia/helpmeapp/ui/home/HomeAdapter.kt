@@ -17,7 +17,10 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.rv_top_helpers_item.view.*
 
-class HomeAdapter(private val context: Context, private val findNavController: NavController) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(
+    private val context: Context,
+    private val onItemClick: (id: Int) -> Unit
+) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private var list: List<Helpers> = ArrayList()
 
     fun setTopHelpersList(list : List<Helpers>) {
@@ -39,9 +42,7 @@ class HomeAdapter(private val context: Context, private val findNavController: N
         holder.rating.text = listModel.rating.toString()
 
         holder.rootView.setOnClickListener {
-            val bundle = bundleOf("helperId" to listModel.id)
-            findNavController.navigate(R.id.action_homeFragment_to_helperDetailsFragment, bundle)
-
+            onItemClick(listModel.id)
         }
     }
 

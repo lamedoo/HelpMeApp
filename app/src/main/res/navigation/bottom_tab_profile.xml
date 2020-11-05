@@ -15,12 +15,24 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/userProfileFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_userProfileEditFragment"
+            app:destination="@id/userProfileEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.lukakordzaia.helpmeapp.ui.login.LoginFragment"
         android:label="ავტორიზაცია"
         tools:layout="@layout/fragment_login">
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileEditFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.UserProfileEditFragment"
+        android:label="პროფილის რედაქტირება"
+        tools:layout="@layout/fragment_user_profile_edit" >
+        <action
+            android:id="@+id/action_userProfileEditFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
 
 </navigation>

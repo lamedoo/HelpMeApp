@@ -19,15 +19,8 @@ class RegisterViewModel : ViewModel() {
 
     fun userLogin(auth: FirebaseAuth, email: String, password: String, name: String, lastName: String, number: String) {
         viewModelScope.launch {
-            try {
-                repository.register(auth, email, password, name, lastName, number)?.let {
-                    _registerSuccess.value = true
-                } ?: run {
-                    _registerSuccess.value = false
-                }
-            } catch (e: FirebaseAuthException) {
-                _registerSuccess.value = false
-            }
+            val result = repository.register(auth, email, password, name, lastName, number)
+            _registerSuccess.value = result != null
         }
     }
 }

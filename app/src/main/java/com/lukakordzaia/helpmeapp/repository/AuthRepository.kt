@@ -1,5 +1,6 @@
 package com.lukakordzaia.helpmeapp.repository
 
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
@@ -11,12 +12,12 @@ import kotlinx.coroutines.tasks.await
 class AuthRepository {
     private lateinit var dbReference: DatabaseReference
 
-    suspend fun authenticate(auth: FirebaseAuth, email: String, password: String): FirebaseUser? {
-        auth.signInWithEmailAndPassword(email, password).await()
-        if (auth.currentUser != null) {
-            return auth.currentUser
-        } else {
-            throw FirebaseAuthException("", "")
+    suspend fun authenticate(auth: FirebaseAuth, email: String, password: String): AuthResult? {
+        return try {
+            val data = auth.signInWithEmailAndPassword(email,password).await()
+            data
+        } catch (e : Exception) {
+            null
         }
     }
 
@@ -26,19 +27,17 @@ class AuthRepository {
         password: String,
         name: String,
         lastName: String,
-        number: String
-    ) : FirebaseUser? {
-        auth.createUserWithEmailAndPassword(email, password).await()
-        if (auth.currentUser != null) {
-            var uid = auth.currentUser!!.uid
+        number: String) : AuthResult? {
+
+        return try {
+            val data = auth.createUserWithEmailAndPassword(email, password).await()
+            val uid = data.user?.uid
             dbReference = FirebaseDatabase.getInstance().getReference("Users")
-            val user = User(email, name, lastName, number)
-
-            dbReference.child(uid).setValue(user)
-
-            return auth.currentUser
-        } else {
-            throw FirebaseAuthException("", "")
+            val user = User(avatar = null, email, name, lastName, number)
+            dbReference.child(uid!!).setValue(user)
+            data
+        } catch (e : Exception) {
+            null
         }
     }
 }

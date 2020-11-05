@@ -9,8 +9,8 @@ object AppPreferences {
     private const val MODE = Context.MODE_PRIVATE
     private lateinit var preferences: SharedPreferences
 
-    private val USER_TOKEN = Pair("user_token", "")
-    private val DARK_MODE = Pair("DarkModeState", false)
+    private val USER_TOKEN = "user_token" to ""
+    private val DARK_MODE = "DarkModeState" to false
 
 
     fun init(context: Context) {

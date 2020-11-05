@@ -27,9 +27,9 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
-        viewModel.userAvatar.observe(viewLifecycleOwner, Observer {
-            Picasso.get().load(it).into(iv_user_profile_avatar)
-        })
+//        viewModel.userAvatar.observe(viewLifecycleOwner, Observer {
+//            Picasso.get().load(it).into(iv_user_profile_avatar)
+//        })
 
         viewModel.showContent.observe(viewLifecycleOwner, Observer {
             user_profile_top_container.setVisibleOrGone(it)
@@ -61,7 +61,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.user_edit) {
-            Toast.makeText(context, "მალე დაემატება შეცვლა", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_userProfileFragment_to_userProfileEditFragment)
             return true
         } else if (id == R.id.user_logout) {
             viewModel.removeSaveToken()
