@@ -3,6 +3,7 @@ package com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,9 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
 
         viewModel.addressExists.observe(viewLifecycleOwner, Observer {
             user_address_container.setVisibleOrGone(it)
+            if (it) {
+                Toast.makeText(context, "This is a toast", Toast.LENGTH_SHORT).show()
+            }
         })
 
     }
