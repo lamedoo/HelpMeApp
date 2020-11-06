@@ -1,12 +1,15 @@
 package com.lukakordzaia.helpmeapp.repository
 
 import android.content.ContentValues
+import android.net.Uri
 import android.util.Log
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
+import com.lukakordzaia.helpmeapp.network.model.UserUpdate
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 
 class UserProfileRepository {
@@ -23,6 +26,57 @@ class UserProfileRepository {
             } else {
                 Log.d(ContentValues.TAG, "Current data: null")
             }
+        }
+    }
+
+    suspend fun updateUserData(userName: String, userData: UserUpdate) : Boolean{
+        return try{
+            val data = Firebase.firestore
+                .collection("users")
+                .document(userName)
+                .update(mapOf(
+                    "name" to userData.name,
+                    "lastName" to userData.lastName,
+                    "email" to userData.email,
+                    "phone" to userData.phone
+                ))
+                .await()
+            true
+        }catch (e : Exception){
+            false
+        }
+    }
+
+    suspend fun uploadUserAvatar(filepath: Uri) : String {
+        return try {
+            val storageReference = Firebase.storage.reference.child("userAvatars/" + UUID.randomUUID().toString())
+            val data = storageReference
+                .putFile(filepath)
+                .await()
+                .storage
+                .downloadUrl
+                .await()
+                .toString()
+            data
+        } catch (e : Exception){
+            e.message.toString()
+        }
+    }
+
+
+
+    suspend fun saveUserAvatarToDB(userName: String, userAvatar: String) : Boolean{
+        return try{
+            val data = Firebase.firestore
+                .collection("users")
+                .document(userName)
+                .update(mapOf(
+                    "avatar" to userAvatar
+                ))
+                .await()
+            true
+        }catch (e : Exception){
+            false
         }
     }
 }

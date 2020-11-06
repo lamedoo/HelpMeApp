@@ -1,4 +1,4 @@
-package com.lukakordzaia.helpmeapp.ui.userprofile
+package com.lukakordzaia.helpmeapp.ui.userprofile.userprofile
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -30,13 +30,12 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
-        viewModel.showContent.observe(viewLifecycleOwner, Observer {
-            user_profile_top_container.setVisibleOrGone(it)
-            user_profile_bottom_container.setVisibleOrGone(it)
-        })
-
         viewModel.showProgress.observe(viewLifecycleOwner, Observer {
             pb_user_profile.setVisibleOrGone(it)
+            if (it == false) {
+                user_profile_top_container.setVisibleOrGone(true)
+                user_profile_bottom_container.setVisibleOrGone(true)
+            }
         })
 
 
@@ -45,15 +44,19 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                 Picasso.get().load(it.avatar).into(iv_user_profile_avatar)
             }
             Log.d(TAG, "${it.avatar}")
-            tv_user_profile_name.text = "${it.name}" + "${it.lastName}"
+            tv_user_profile_name.text = "${it.name}" + " ${it.lastName}"
             tv_user_profile_email.text = it.email
             tv_user_profile_number.text = it.phone
         })
+
+        user_profile_address_container.setOnClickListener {
+            findNavController().navigate(R.id.action_userProfileFragment_to_userAddressesFragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.user_edit_menu, menu)
+        inflater.inflate(R.menu.user_profile_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

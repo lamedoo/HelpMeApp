@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.UserProfileFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.userprofile.UserProfileFragment"
         android:label="პროფილი"
         tools:layout="@layout/fragment_user_profile" >
         <action

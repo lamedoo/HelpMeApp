@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.UserProfileFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.userprofile.UserProfileFragment"
         android:label="პროფილი"
         tools:layout="@layout/fragment_user_profile" >
         <action
@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_userProfileFragment_to_userProfileEditFragment"
             app:destination="@id/userProfileEditFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_userAddressesFragment"
+            app:destination="@id/userAddressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -27,11 +30,20 @@
     </fragment>
     <fragment
         android:id="@+id/userProfileEditFragment"
-        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.UserProfileEditFragment"
-        android:label="პროფილის რედაქტირება"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.userprofileedit.UserProfileEditFragment"
+        android:label="რედაქტირება"
         tools:layout="@layout/fragment_user_profile_edit" >
         <action
             android:id="@+id/action_userProfileEditFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAddressesFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses.UserAddressesFragment"
+        android:label="მისამართები"
+        tools:layout="@layout/fragment_user_addresses" >
+        <action
+            android:id="@+id/action_userAddressesFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
     </fragment>
 
