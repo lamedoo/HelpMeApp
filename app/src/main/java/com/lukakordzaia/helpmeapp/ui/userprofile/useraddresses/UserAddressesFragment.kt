@@ -23,10 +23,6 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
 
         viewModel.addressExists.observe(viewLifecycleOwner, Observer {
             user_address_container.setVisibleOrGone(it)
-            if (it) {
-                Toast.makeText(context, "this is a toast", Toast.LENGTH_SHORT).show()
-                Toast.makeText(context, "this is a second toast", Toast.LENGTH_SHORT).show()
-            }
         })
 
     }
