@@ -1,9 +1,6 @@
 package com.lukakordzaia.helpmeapp.network.model
 
-import com.google.gson.annotations.SerializedName
-import java.util.*
-
-data class User(
+data class UserRegister(
     val avatar: String? = "",
     val email: String? = "",
     val name: String? = "",

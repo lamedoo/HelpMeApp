@@ -1,9 +1,7 @@
 package com.lukakordzaia.helpmeapp.ui.userprofile.userprofile
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -38,15 +36,25 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             }
         })
 
-
-        viewModel.userDataList.observe(viewLifecycleOwner, Observer {
-            if (!it.avatar.equals("null")) {
-                Picasso.get().load(it.avatar).into(iv_user_profile_avatar)
+        viewModel.getUserDataFromRoom(requireContext()).observe(viewLifecycleOwner, Observer { users ->
+            if (users != null) {
+                if (!users.avatar.equals("null")) {
+                    Picasso.get().load(users.avatar).into(iv_user_profile_avatar)
+                }
+                tv_user_profile_name.text = "${users.firstName}" + " ${users.lastName}"
+                tv_user_profile_email.text = users.email
+                tv_user_profile_number.text = users.phone
+            } else {
+                viewModel.addUserChangeListener(requireContext())
+                viewModel.userDataList.observe(viewLifecycleOwner, Observer {
+                    if (!it.avatar.equals("null")) {
+                        Picasso.get().load(it.avatar).into(iv_user_profile_avatar)
+                    }
+                    tv_user_profile_name.text = "${it.name}" + " ${it.lastName}"
+                    tv_user_profile_email.text = it.email
+                    tv_user_profile_number.text = it.phone
+                })
             }
-            Log.d(TAG, "${it.avatar}")
-            tv_user_profile_name.text = "${it.name}" + " ${it.lastName}"
-            tv_user_profile_email.text = it.email
-            tv_user_profile_number.text = it.phone
         })
 
         user_profile_address_container.setOnClickListener {
