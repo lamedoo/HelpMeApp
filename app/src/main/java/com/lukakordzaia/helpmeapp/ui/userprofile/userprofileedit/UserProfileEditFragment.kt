@@ -14,8 +14,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.google.firebase.storage.FirebaseStorage
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.squareup.picasso.Picasso
@@ -82,8 +80,7 @@ class UserProfileEditFragment : Fragment(R.layout.fragment_user_profile_edit) {
             val email = tv_user_profile_edit_email.text.toString()
             val number = tv_user_profile_edit_number.text.toString()
 
-            viewModel.updateUserData(name, lastName, email, number, filePath)
-            (activity as MainActivity).onBackPressed()
+            viewModel.updateUserData(requireContext(), name, lastName, email, number, filePath)
         }
 
         return super.onOptionsItemSelected(item)

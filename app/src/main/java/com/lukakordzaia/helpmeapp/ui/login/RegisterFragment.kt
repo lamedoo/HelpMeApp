@@ -24,7 +24,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val email = tv_register_email.text.toString()
             val name = tv_register_name.text.toString()
             val lastName = tv_register_lastName.text.toString()
-            val number = tv_register_phone.text.toString()
+            val phone = tv_register_phone.text.toString()
             val password = tv_register_password.text.toString()
 
             tv_register_password.clearFocus()
@@ -35,7 +35,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 password,
                 name,
                 lastName,
-                number
+                phone
             )
         }
 

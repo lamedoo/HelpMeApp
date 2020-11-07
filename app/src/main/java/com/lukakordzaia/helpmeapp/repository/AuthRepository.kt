@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.lukakordzaia.helpmeapp.network.model.User
+import com.lukakordzaia.helpmeapp.network.model.UserRegister
 import kotlinx.coroutines.tasks.await
 
 class AuthRepository {
@@ -26,14 +26,14 @@ class AuthRepository {
         password: String,
         name: String,
         lastName: String,
-        number: String) : AuthResult? {
+        phone: String) : AuthResult? {
 
         return try {
             val data = auth.createUserWithEmailAndPassword(email, password).await()
             val uid = data.user?.uid
             val db = Firebase.firestore
-            val user = User(avatar = null, email, name, lastName, number)
 
+            val user = UserRegister(avatar = null, email, name, lastName, phone)
             db.collection("users").document(uid!!).set(user)
 
             data

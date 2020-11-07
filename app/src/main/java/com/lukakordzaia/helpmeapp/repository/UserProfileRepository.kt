@@ -1,20 +1,28 @@
 package com.lukakordzaia.helpmeapp.repository
 
 import android.content.ContentValues
-import android.net.Uri
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
-import com.lukakordzaia.helpmeapp.network.model.UserUpdate
-import kotlinx.coroutines.tasks.await
-import java.util.*
+import com.lukakordzaia.helpmeapp.network.room.HelpMeAppDatabase
+import com.lukakordzaia.helpmeapp.network.room.Users
+import com.lukakordzaia.helpmeapp.network.room.UsersDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class UserProfileRepository {
 
-    fun getUserData(userName: String, firebaseCallback: FirebaseCallBack) {
+    fun getUserDataFromRoom(usersDao: UsersDao, userName: String): LiveData<Users> {
+        return usersDao.getCurrentUserData(userName)
+    }
+
+    fun getUserData(context: Context, userName: String, firebaseCallback: FirebaseCallBack) {
+
         val docRef = Firebase.firestore.collection("users").document(userName)
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -22,61 +30,25 @@ class UserProfileRepository {
                 return@addSnapshotListener
             }
             if (snapshot != null && snapshot.exists()) {
-                snapshot.data?.let { firebaseCallback.onCallback(it) }
+                snapshot.data?.let {
+                    firebaseCallback.onCallback(it)
+                    val userData = Users(
+                        0,
+                        userName,
+                        it["name"].toString(),
+                        it["lastName"].toString(),
+                        it["email"].toString(),
+                        it["phone"].toString(),
+                        null
+                    )
+                    CoroutineScope(Dispatchers.IO).launch {
+                        HelpMeAppDatabase.getDatabase(context)?.getDao()?.insertUserData(userData)
+                    }
+
+                }
             } else {
                 Log.d(ContentValues.TAG, "Current data: null")
             }
-        }
-    }
-
-    suspend fun updateUserData(userName: String, userData: UserUpdate) : Boolean{
-        return try{
-            val data = Firebase.firestore
-                .collection("users")
-                .document(userName)
-                .update(mapOf(
-                    "name" to userData.name,
-                    "lastName" to userData.lastName,
-                    "email" to userData.email,
-                    "phone" to userData.phone
-                ))
-                .await()
-            true
-        }catch (e : Exception){
-            false
-        }
-    }
-
-    suspend fun uploadUserAvatar(filepath: Uri) : String {
-        return try {
-            val storageReference = Firebase.storage.reference.child("userAvatars/" + UUID.randomUUID().toString())
-            val data = storageReference
-                .putFile(filepath)
-                .await()
-                .storage
-                .downloadUrl
-                .await()
-                .toString()
-            data
-        } catch (e : Exception){
-            e.message.toString()
-        }
-    }
-
-
-
-    suspend fun saveUserAvatarToDB(userName: String, userAvatar: String) : Boolean{
-        return try{
-            val data = Firebase.firestore
-                .collection("users")
-                .document(userName)
-                .update(mapOf(
-                    "avatar" to userAvatar
-                ))
-                .await()
-            true
-        }catch (e : Exception){
-            false
         }
     }
 }
