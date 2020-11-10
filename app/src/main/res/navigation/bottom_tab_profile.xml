@@ -45,6 +45,25 @@
         <action
             android:id="@+id/action_userAddressesFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_userAddressesFragment_to_searchAddressesFragment"
+            app:destination="@id/searchAddressesFragment" />
+        <argument
+            android:name="addressName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchAddressesFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses.SearchAddressesFragment"
+        android:label="fragment_search_addresses"
+        tools:layout="@layout/fragment_search_addresses" >
+        <action
+            android:id="@+id/action_searchAddressesFragment_to_userAddressesFragment"
+            app:destination="@id/userAddressesFragment"
+            app:popUpTo="@id/searchAddressesFragment"/>
+        <argument
+            android:name="addressName"
+            app:argType="string" />
     </fragment>
 
 </navigation>

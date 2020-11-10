@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/best_helpers_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addresses_item_root"
+    android:padding="10dp"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/tv_user_address_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="მისამართი #1"
+        android:textColor="?colorOnPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_user_address_delete"/>
+
+    <ImageView
+        android:id="@+id/iv_user_address_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete_icon"
+        app:tint="#C62828"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HelpMeApp</string>
+    <string name="google_maps_api_key">AIzaSyAlcDjRO2fuX-Eqvl8CsO5KkDunuRkCKUs</string>
 </resources>
