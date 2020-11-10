@@ -8,3 +8,7 @@ sealed class Result<out T: Any> {
 interface FirebaseCallBack {
     fun onCallback(userData: MutableMap<String, Any>)
 }
+
+interface FirestoreAddressesCallBack {
+    fun onCallback(addresses: MutableList<*>)
+}

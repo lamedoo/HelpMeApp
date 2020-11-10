@@ -1,7 +1,9 @@
 package com.lukakordzaia.helpmeapp.utils
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 
 inline fun <T : Fragment> T.applyBundle(block: Bundle.() -> Unit): T {
@@ -25,4 +27,15 @@ fun View.setInvisible() {
 
 fun View.setVisibleOrGone(visibility: Boolean) {
     this.visibility = if (visibility) View.VISIBLE else View.GONE
+}
+
+fun View.showKeyboard() {
+    this.requestFocus()
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun View.hideKeyboard() {
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }
