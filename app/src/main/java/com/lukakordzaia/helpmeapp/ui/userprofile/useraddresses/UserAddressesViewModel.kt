@@ -2,15 +2,15 @@ package com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.FirestoreAddressesCallBack
 import com.lukakordzaia.helpmeapp.repository.UserProfileEditRepository
+import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import kotlinx.coroutines.launch
 
-class UserAddressesViewModel : ViewModel() {
+class UserAddressesViewModel : BaseViewModel() {
     private val repository = UserProfileEditRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _noAddress = MutableLiveData<Boolean>()
@@ -23,7 +23,24 @@ class UserAddressesViewModel : ViewModel() {
     fun addAddressToFirestore(address: String) {
         val currentUser = Firebase.auth.currentUser?.uid
         viewModelScope.launch {
-            repository.saveUserAddress(currentUser!!, address)
+            val saveUserAddress = repository.saveUserAddress(currentUser!!, address)
+            if (saveUserAddress) {
+                newToastMessage("მისამართი წარმატებით დაემატა")
+            } else {
+                newToastMessage("მისამართი ვერ დაემატა, გთხოვთ სცადოთ თავიდან")
+            }
+        }
+    }
+
+    fun deleteSingleAddress(address: String) {
+        val currentUser = Firebase.auth.currentUser?.uid
+        viewModelScope.launch {
+            val deleteAddress = repository.deleteUserAddress(currentUser!!, address)
+            if (deleteAddress) {
+                newToastMessage("მისამართი წარმატებით წაიშალა")
+            } else {
+                newToastMessage("მისამართი არ წაიშალა, გთხვოთ სცადოთ თავიდან")
+            }
         }
     }
 

@@ -3,23 +3,32 @@ package com.lukakordzaia.helpmeapp.ui.userprofile.userprofile
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
 import com.lukakordzaia.helpmeapp.network.model.UserRegister
 import com.lukakordzaia.helpmeapp.network.room.HelpMeAppDatabase
 import com.lukakordzaia.helpmeapp.network.room.Users
 import com.lukakordzaia.helpmeapp.repository.UserProfileRepository
+import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import com.lukakordzaia.helpmeapp.utils.AppPreferences
 
-class UserProfileViewModel: ViewModel() {
+class UserProfileViewModel: BaseViewModel() {
     private val repository = UserProfileRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _userDataList = MutableLiveData<UserRegister>()
 
     val showProgress: LiveData<Boolean> = _showProgress
     val userDataList: LiveData<UserRegister> = _userDataList
+
+    fun onAddressesPressed() {
+        navigateToNewFragment(R.id.action_userProfileFragment_to_userAddressesFragment)
+    }
+
+    fun onUserEditPressed() {
+        navigateToNewFragment(R.id.action_userProfileFragment_to_userProfileEditFragment)
+    }
 
     fun removeSaveToken() {
         AppPreferences.user_token = ""

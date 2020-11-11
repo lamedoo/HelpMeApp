@@ -4,19 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.model.Helpers
-import com.lukakordzaia.helpmeapp.ui.helperdetails.HelperDetailsFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_helpers_item.view.*
 
-class HelpersAdapter(private val context: Context, private val findNavController: NavController) : RecyclerView.Adapter<HelpersAdapter.ViewHolder>()
+class HelpersAdapter(
+    private val context: Context,
+    private val onItemClick: (id: Int) -> Unit
+) : RecyclerView.Adapter<HelpersAdapter.ViewHolder>()
 {
     private var list: List<Helpers> = ArrayList()
 
@@ -38,8 +35,7 @@ class HelpersAdapter(private val context: Context, private val findNavController
         holder.price.text = listModel.price.toString() + " ₾"
         holder.rating.text = listModel.rating.toString()
         holder.rootView.setOnClickListener {
-            val bundle = bundleOf("helperId" to listModel.id)
-            findNavController.navigate(R.id.action_helpersFragment_to_helperDetailsFragment, bundle)
+            onItemClick(listModel.id)
         }
     }
 

@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.os.bundleOf
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.model.Helpers
-import com.lukakordzaia.helpmeapp.ui.helpers.HelpersAdapter
-import com.lukakordzaia.helpmeapp.utils.setGone
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.rv_top_helpers_item.view.*
@@ -40,7 +36,6 @@ class HomeAdapter(
         Picasso.get().load(listModel.avatar).into(holder.avatar)
         holder.name.text = listModel.name
         holder.rating.text = listModel.rating.toString()
-
         holder.rootView.setOnClickListener {
             onItemClick(listModel.id)
         }

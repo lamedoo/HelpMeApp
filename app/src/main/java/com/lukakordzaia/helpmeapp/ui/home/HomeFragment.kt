@@ -1,21 +1,19 @@
 package com.lukakordzaia.helpmeapp.ui.home
 
-import android.content.ClipData
 import android.content.Context
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
-import android.view.*
-import android.widget.Toast
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
-import com.lukakordzaia.helpmeapp.ui.helpers.HelpersAdapter
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.navController
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -32,14 +30,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).showBottomNavigation()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        adapter = HomeAdapter(requireContext()) {
-            val bundle = bundleOf("helperId" to it)
-            findNavController().navigate(R.id.action_homeFragment_to_helperDetailsFragment, bundle)
+        adapter = HomeAdapter(requireContext()) { helperId ->
+            viewModel.onHelpersPressed()
+            val bundle = bundleOf("helperId" to helperId)
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it, bundle)
+            })
         }
         rv_top_helpers.adapter = adapter
 
         btn_main_chooseHelpers.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_helpersFragment)
+            viewModel.onHelpersListPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
         }
 
         viewModel.showProgress.observe(viewLifecycleOwner, Observer {
@@ -60,9 +64,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var id = item.itemId
+        val id = item.itemId
         if (id == R.id.home_settings) {
-            findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+            viewModel.onSettingsPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
             return true
         }
 
