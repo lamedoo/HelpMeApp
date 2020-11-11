@@ -20,5 +20,4 @@ abstract class BaseViewModel : ViewModel() {
     fun newToastMessage(message: String) {
         _toastMessage.value = Event(message)
     }
-
 }

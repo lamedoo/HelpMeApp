@@ -16,11 +16,11 @@ object ServiceBuilder {
         .addInterceptor(getInterceptor())
         .build()
 
-        val retrofit: Retrofit = Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .client(okHttpClient)
+        .baseUrl(URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     suspend fun <T: Any> retrofitCall(call: suspend () -> Response<T>): Result<T> {
             return try {

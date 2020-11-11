@@ -30,40 +30,23 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
         viewModel = ViewModelProvider(this).get(HelperDetailsViewModel::class.java)
         val helperId = args.helperId
 
-
         viewModel.getSingleHelper(helperId)
-
-        viewModel.showContent.observe(viewLifecycleOwner, Observer {
-            helper_details_top.setVisibleOrGone(it)
-            helper_details_reviews.setVisibleOrGone(it)
-        })
 
         viewModel.showProgress.observe(viewLifecycleOwner, Observer {
             pb_helper_detail.setVisibleOrGone(it)
+            if (!it) {
+                helper_details_top.setVisibleOrGone(true)
+                helper_details_reviews.setVisibleOrGone(true)
+            }
         })
 
-        viewModel.helperAvatar.observe(viewLifecycleOwner, Observer {
-            Picasso.get().load(it).into(iv_helper_details_avatar)
-        })
-
-        viewModel.helperName.observe(viewLifecycleOwner, Observer {
-            tv_helper_detail_name.text = it
-        })
-
-        viewModel.helperBio.observe(viewLifecycleOwner, Observer {
-            tv_helper_details_bio.text = it
-        })
-
-        viewModel.helperPrice.observe(viewLifecycleOwner, Observer {
-            tv_helper_details_price.text = it.toString()
-        })
-
-        viewModel.helperRating.observe(viewLifecycleOwner, Observer {
-            tv_helper_details_rating.text = it.toString()
-        })
-
-        viewModel.helperJobsDone.observe(viewLifecycleOwner, Observer {
-            tv_helper_details_jobCount.text = it.toString()
+        viewModel.helperData.observe(viewLifecycleOwner, Observer {
+            Picasso.get().load(it.avatar).into(iv_helper_details_avatar)
+            tv_helper_detail_name.text = it.name
+            tv_helper_details_bio.text = it.bio
+            tv_helper_details_price.text = it.price.toString()
+            tv_helper_details_rating.text = it.rating.toString()
+            tv_helper_details_jobCount.text = it.jobs_done.toString()
         })
 
         btn_helper_details_order.setOnClickListener {

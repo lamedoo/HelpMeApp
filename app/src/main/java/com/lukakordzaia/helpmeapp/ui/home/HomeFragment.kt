@@ -13,7 +13,8 @@ import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.navController
-import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -35,6 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 navController(it)
             })
         }
+        rv_top_helpers.loadSkeleton(R.layout.rv_top_helpers_item)
         rv_top_helpers.adapter = adapter
 
         btn_main_chooseHelpers.setOnClickListener {
@@ -45,7 +47,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         viewModel.showProgress.observe(viewLifecycleOwner, Observer {
-            pb_top_helpers.setVisibleOrGone(it)
+            if (!it) {
+                rv_top_helpers.hideSkeleton()
+            }
         })
 
         viewModel.topHelpersList.observe(viewLifecycleOwner, Observer {

@@ -21,7 +21,7 @@ data class Helpers(
     @SerializedName("jobs_done")
     val jobs_done: Int,
     @SerializedName("city")
-    val city: String,
+    val city: String?,
     @SerializedName("address")
-    val address: String
+    val address: String?
 )
