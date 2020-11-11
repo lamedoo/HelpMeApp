@@ -11,11 +11,6 @@
         android:label="პროფილი"
         tools:layout="@layout/fragment_user_profile" >
         <action
-            android:id="@+id/action_userProfileFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/userProfileFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_userProfileFragment_to_userProfileEditFragment"
             app:destination="@id/userProfileEditFragment" />
         <action
@@ -23,19 +18,10 @@
             app:destination="@id/userAddressesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.lukakordzaia.helpmeapp.ui.login.LoginFragment"
-        android:label="ავტორიზაცია"
-        tools:layout="@layout/fragment_login">
-    </fragment>
-    <fragment
         android:id="@+id/userProfileEditFragment"
         android:name="com.lukakordzaia.helpmeapp.ui.userprofile.userprofileedit.UserProfileEditFragment"
         android:label="რედაქტირება"
         tools:layout="@layout/fragment_user_profile_edit" >
-        <action
-            android:id="@+id/action_userProfileEditFragment_to_userProfileFragment"
-            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/userAddressesFragment"
@@ -45,25 +31,6 @@
         <action
             android:id="@+id/action_userAddressesFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
-        <action
-            android:id="@+id/action_userAddressesFragment_to_searchAddressesFragment"
-            app:destination="@id/searchAddressesFragment" />
-        <argument
-            android:name="addressName"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchAddressesFragment"
-        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses.SearchAddressesFragment"
-        android:label="fragment_search_addresses"
-        tools:layout="@layout/fragment_search_addresses" >
-        <action
-            android:id="@+id/action_searchAddressesFragment_to_userAddressesFragment"
-            app:destination="@id/userAddressesFragment"
-            app:popUpTo="@id/searchAddressesFragment"/>
-        <argument
-            android:name="addressName"
-            app:argType="string" />
     </fragment>
 
 </navigation>

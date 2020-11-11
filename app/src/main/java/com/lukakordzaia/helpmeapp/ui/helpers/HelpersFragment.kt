@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,10 +32,9 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
 
         viewModel.getAllHelpers()
         adapter = HelpersAdapter(requireContext()) { helperId ->
-            viewModel.onHelperPressed()
-            val bundle = bundleOf("helperId" to helperId)
+            viewModel.onHelperPressed(helperId)
             viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it, bundle)
+                navController(it)
             })
         }
         rv_helpers.adapter = adapter

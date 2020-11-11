@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
 import com.lukakordzaia.helpmeapp.network.model.UserRegister
 import com.lukakordzaia.helpmeapp.network.room.HelpMeAppDatabase
@@ -23,11 +22,11 @@ class UserProfileViewModel: BaseViewModel() {
     val userDataList: LiveData<UserRegister> = _userDataList
 
     fun onAddressesPressed() {
-        navigateToNewFragment(R.id.action_userProfileFragment_to_userAddressesFragment)
+        navigateToNewFragment(UserProfileFragmentDirections.actionUserProfileFragmentToUserAddressesFragment())
     }
 
     fun onUserEditPressed() {
-        navigateToNewFragment(R.id.action_userProfileFragment_to_userProfileEditFragment)
+        navigateToNewFragment(UserProfileFragmentDirections.actionUserProfileFragmentToUserProfileEditFragment())
     }
 
     fun removeSaveToken() {

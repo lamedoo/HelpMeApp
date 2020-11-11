@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelpersRepository
@@ -19,16 +18,16 @@ class HomeViewModel: BaseViewModel() {
     val showProgress : LiveData<Boolean> = _showProgress
     val topHelpersList : LiveData<List<Helpers>> = _topHelpersList
 
-    fun onHelpersPressed() {
-        navigateToNewFragment(R.id.action_homeFragment_to_helperDetailsFragment)
+    fun onHelpersPressed(helperId: Int) {
+        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelperDetailsFragment(helperId))
     }
 
     fun onHelpersListPressed() {
-        navigateToNewFragment(R.id.action_homeFragment_to_helpersFragment)
+        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelpersFragment())
     }
 
     fun onSettingsPressed() {
-        navigateToNewFragment(R.id.action_homeFragment_to_settingsFragment)
+        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
     }
 
     fun getTopHelpers() {

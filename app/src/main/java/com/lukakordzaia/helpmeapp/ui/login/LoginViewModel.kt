@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.repository.AuthRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import com.lukakordzaia.helpmeapp.utils.AppPreferences
@@ -20,12 +19,12 @@ class LoginViewModel : BaseViewModel() {
 
     fun onTokenExists() {
         if (AppPreferences.user_token.isNotEmpty()) {
-            navigateToNewFragment(R.id.action_loginFragment_to_homeFragment)
+            navigateToNewFragment(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
 
     fun onRegisterPressed() {
-        navigateToNewFragment(R.id.action_loginFragment_to_registerFragment)
+        navigateToNewFragment(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
     }
 
     fun userLogin(auth: FirebaseAuth, email: String, password: String) {
@@ -33,7 +32,7 @@ class LoginViewModel : BaseViewModel() {
             val result = repository.authenticate(auth, email, password)
             if ( result != null) {
                 _loginSuccess.value = true
-                navigateToNewFragment(R.id.action_loginFragment_to_homeFragment)
+                navigateToNewFragment(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                 val user = result.user!!.uid
                 AppPreferences.user_token = user
             } else {

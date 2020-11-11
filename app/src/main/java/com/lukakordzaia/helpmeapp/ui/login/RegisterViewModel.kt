@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.repository.AuthRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import kotlinx.coroutines.launch
@@ -22,7 +21,7 @@ class RegisterViewModel : BaseViewModel() {
             if (result != null) {
                 _registerSuccess.value = true
                 newToastMessage("თქვენ წარმატებით დარეგისტრირდით, გთხოვ გაიაროთ ავტორიზაცია")
-                navigateToNewFragment(R.id.action_registerFragment_to_loginFragment)
+                navigateToNewFragment(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
             } else {
                 _registerSuccess.value = false
                 newToastMessage("სამწუხაროდ, რეგისტრაცია ვერ მოხერხდა. გთხოვთ სცადოთ თავიდან")

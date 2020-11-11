@@ -6,6 +6,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 
 inline fun <T : Fragment> T.applyBundle(block: Bundle.() -> Unit): T {
@@ -15,8 +16,8 @@ inline fun <T : Fragment> T.applyBundle(block: Bundle.() -> Unit): T {
     return this
 }
 
-fun <T : Fragment> T.navController(navId: Int, bundle: Bundle? = null) {
-    findNavController().navigate(navId, bundle)
+fun <T : Fragment> T.navController(navId: NavDirections) {
+    findNavController().navigate(navId)
 }
 
 fun Context?.createToast(message: String, duration: Int = Toast.LENGTH_SHORT) {

@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,10 +30,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         (activity as MainActivity).showBottomNavigation()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         adapter = HomeAdapter(requireContext()) { helperId ->
-            viewModel.onHelpersPressed()
-            val bundle = bundleOf("helperId" to helperId)
+            viewModel.onHelpersPressed(helperId)
             viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it, bundle)
+                navController(it)
             })
         }
         rv_top_helpers.adapter = adapter
