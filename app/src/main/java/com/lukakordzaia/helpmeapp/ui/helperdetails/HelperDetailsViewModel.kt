@@ -6,9 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.lukakordzaia.helpmeapp.repository.HelperDetailRepository
 import com.lukakordzaia.helpmeapp.network.Result
-import kotlinx.coroutines.Dispatchers
+import com.lukakordzaia.helpmeapp.repository.HelperDetailRepository
 import kotlinx.coroutines.launch
 
 class HelperDetailsViewModel(application: Application) : AndroidViewModel(application) {
@@ -51,7 +50,7 @@ class HelperDetailsViewModel(application: Application) : AndroidViewModel(applic
                 is Result.Error -> {
                     _showProgress.value = false
                     _showContent.value = false
-                    Log.d("error", "error")
+                    Log.d("error", retrofit.exception)
                 }
             }
         }

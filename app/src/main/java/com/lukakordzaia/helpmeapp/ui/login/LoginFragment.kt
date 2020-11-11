@@ -8,11 +8,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
-import com.lukakordzaia.helpmeapp.utils.AppPreferences
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.navController
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -20,12 +20,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (AppPreferences.user_token.isNotEmpty()) {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
-
-
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        viewModel.onTokenExists()
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
 
         btn_login.setOnClickListener {
             checkLoginInfo()
@@ -37,9 +36,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.userLogin(FirebaseAuth.getInstance(), email, password)
         }
 
-        viewModel.loginSuccess.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        viewModel.loginSuccess.observe(viewLifecycleOwner, Observer { success ->
+            if (success) {
+                viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                    navController(it)
+                })
             }
         })
 
@@ -49,7 +50,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         })
 
         btn_goto_register.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            viewModel.onRegisterPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
         }
     }
 

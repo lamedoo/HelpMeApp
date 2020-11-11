@@ -3,13 +3,14 @@ package com.lukakordzaia.helpmeapp.ui.login
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.lukakordzaia.helpmeapp.R
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.createToast
+import com.lukakordzaia.helpmeapp.utils.navController
 import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
@@ -39,12 +40,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             )
         }
 
-        viewModel.registerSuccess.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                Toast.makeText(context, "გთხოვთ გაიაროთ ავტორიზაცია", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        viewModel.registerSuccess.observe(viewLifecycleOwner, Observer {success ->
+            if (success) {
+                viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+                    context.createToast(it)
+                })
+                viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                    navController(it)
+                })
             } else {
-                Toast.makeText(context, "რეგისტრაცია ვერ ხერხდება", Toast.LENGTH_SHORT).show()
+                viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+                    context.createToast(it)
+                })
             }
         })
     }

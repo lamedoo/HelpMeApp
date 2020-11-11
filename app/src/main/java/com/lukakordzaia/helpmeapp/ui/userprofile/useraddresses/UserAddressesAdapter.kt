@@ -6,20 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.R
-import com.lukakordzaia.helpmeapp.repository.UserProfileEditRepository
 import kotlinx.android.synthetic.main.rv_addresses_item.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class UserAddressesAdapter(private val context: Context) : RecyclerView.Adapter<UserAddressesAdapter.ViewHolder>() {
+class UserAddressesAdapter(
+    private val context: Context,
+    private val onItemClick: (address: String) -> Unit
+) : RecyclerView.Adapter<UserAddressesAdapter.ViewHolder>() {
     private var list: List<String> = ArrayList()
-    private val currentUser = Firebase.auth.currentUser?.uid
-    private val repository = UserProfileEditRepository()
 
     fun setHelpersList(list : List<String>) {
         this.list = list
@@ -38,20 +33,7 @@ class UserAddressesAdapter(private val context: Context) : RecyclerView.Adapter<
 
         holder.addressNameTextView.text = listModel
         holder.deleteAddressImageView.setOnClickListener {
-
-            val builder = AlertDialog.Builder(context)
-            builder.setMessage("Are you sure you want to Delete?")
-                .setCancelable(false)
-                .setPositiveButton("Yes") { _, _ ->
-                    GlobalScope.launch {
-                        repository.deleteUserAddress(currentUser!!, listModel)
-                    }
-                }
-                .setNegativeButton("No") { dialog, _ ->
-                    dialog.dismiss()
-                }
-            val alert = builder.create()
-            alert.show()
+            onItemClick(listModel)
         }
     }
 

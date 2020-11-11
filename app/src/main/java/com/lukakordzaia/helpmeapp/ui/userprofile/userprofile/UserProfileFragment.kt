@@ -9,9 +9,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.navController
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_user_profile.*
@@ -41,7 +42,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                 if (!users.avatar.equals("null")) {
                     Picasso.get().load(users.avatar).into(iv_user_profile_avatar)
                 }
-                tv_user_profile_name.text = "${users.firstName}" + " ${users.lastName}"
+                tv_user_profile_name.text = "${users.firstName} ${users.lastName}"
                 tv_user_profile_email.text = users.email
                 tv_user_profile_number.text = users.phone
             } else {
@@ -50,7 +51,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
                     if (!it.avatar.equals("null")) {
                         Picasso.get().load(it.avatar).into(iv_user_profile_avatar)
                     }
-                    tv_user_profile_name.text = "${it.name}" + " ${it.lastName}"
+                    tv_user_profile_name.text = "${it.name} ${it.lastName}"
                     tv_user_profile_email.text = it.email
                     tv_user_profile_number.text = it.phone
                 })
@@ -58,7 +59,10 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         })
 
         user_profile_address_container.setOnClickListener {
-            findNavController().navigate(R.id.action_userProfileFragment_to_userAddressesFragment)
+            viewModel.onAddressesPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
         }
     }
 
@@ -70,7 +74,10 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.user_edit) {
-            findNavController().navigate(R.id.action_userProfileFragment_to_userProfileEditFragment)
+            viewModel.onUserEditPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
             return true
         } else if (id == R.id.user_logout) {
             viewModel.removeSaveToken()

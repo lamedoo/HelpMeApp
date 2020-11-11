@@ -2,10 +2,8 @@ package com.lukakordzaia.helpmeapp.ui.userprofile.userprofileedit
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -13,9 +11,10 @@ import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
 import com.lukakordzaia.helpmeapp.network.model.UserRegister
 import com.lukakordzaia.helpmeapp.network.model.UserUpdate
 import com.lukakordzaia.helpmeapp.repository.UserProfileEditRepository
+import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import kotlinx.coroutines.launch
 
-class UserProfileEditViewModel : ViewModel() {
+class UserProfileEditViewModel : BaseViewModel() {
     private val repository = UserProfileEditRepository()
     private val _userDataList = MutableLiveData<UserRegister>()
 
@@ -48,7 +47,7 @@ class UserProfileEditViewModel : ViewModel() {
         viewModelScope.launch {
             val update = currentUser?.let { repository.updateUserData(it, userData) }
             if (update == true) {
-                Log.d("dataUpdate", "success")
+                newToastMessage("პროფილი წარმატებით განახლდა")
             }
         }
         viewModelScope.launch {
@@ -60,7 +59,7 @@ class UserProfileEditViewModel : ViewModel() {
         if (filePath != null) {
             viewModelScope.launch {
                 val uploadAvatar = repository.uploadUserAvatar(filePath)
-                Log.d("useravatar", uploadAvatar)
+                newToastMessage("სურათი წარმატებით აიტვირთა")
                 if (uploadAvatar.isNotEmpty()) {
                     repository.saveUserAvatarToFirestore(currentUser!!, uploadAvatar)
                 }

@@ -16,14 +16,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.createToast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_user_profile_edit.*
 
 
 class UserProfileEditFragment : Fragment(R.layout.fragment_user_profile_edit) {
     private lateinit var viewModel: UserProfileEditViewModel
-    private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
+
+    companion object {
+        private const val PICK_IMAGE_REQUEST = 71
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +86,9 @@ class UserProfileEditFragment : Fragment(R.layout.fragment_user_profile_edit) {
             val number = tv_user_profile_edit_number.text.toString()
 
             viewModel.updateUserData(requireContext(), name, lastName, email, number, filePath)
+            viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+                context.createToast(it)
+            })
         }
 
         return super.onOptionsItemSelected(item)

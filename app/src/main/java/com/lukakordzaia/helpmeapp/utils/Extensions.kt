@@ -4,13 +4,23 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 inline fun <T : Fragment> T.applyBundle(block: Bundle.() -> Unit): T {
     val bundle = Bundle()
     bundle.block()
     arguments = bundle
     return this
+}
+
+fun <T : Fragment> T.navController(navId: Int, bundle: Bundle? = null) {
+    findNavController().navigate(navId, bundle)
+}
+
+fun Context?.createToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    this?.let { Toast.makeText(it, message, duration).show() }
 }
 
 fun View.setVisible() {

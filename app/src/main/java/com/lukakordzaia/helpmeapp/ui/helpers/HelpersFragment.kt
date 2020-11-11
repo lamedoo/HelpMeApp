@@ -1,6 +1,5 @@
 package com.lukakordzaia.helpmeapp.ui.helpers
 
-import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
@@ -8,16 +7,16 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.navController
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import kotlinx.android.synthetic.main.fragment_helpers.*
-
 
 class HelpersFragment : Fragment(R.layout.fragment_helpers) {
     private lateinit var viewModel: HelpersViewModel
@@ -33,7 +32,13 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         viewModel = ViewModelProvider(this).get(HelpersViewModel::class.java)
 
         viewModel.getAllHelpers()
-        adapter = HelpersAdapter(requireContext(), findNavController())
+        adapter = HelpersAdapter(requireContext()) { helperId ->
+            viewModel.onHelperPressed()
+            val bundle = bundleOf("helperId" to helperId)
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it, bundle)
+            })
+        }
         rv_helpers.adapter = adapter
 
 
@@ -70,7 +75,7 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var id = item.itemId
+        val id = item.itemId
         if (id == R.id.helpers_filter_byRating) {
             viewModel.getHelpersByRating()
             return true
