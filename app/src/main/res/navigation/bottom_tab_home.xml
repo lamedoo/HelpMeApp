@@ -42,6 +42,9 @@
             android:name="helperId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_helperDetailsFragment_to_orderChooseDetailsFragment"
+            app:destination="@id/orderChooseDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -71,5 +74,33 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/orderChooseDetailsFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.orderhelper.orderchoosedetails.OrderChooseDetailsFragment"
+        android:label="აირჩიეთ მისამართი"
+        tools:layout="@layout/fragment_order_choose_details" >
+        <action
+            android:id="@+id/action_orderChooseDetailsFragment_to_orderChooseServicesFragment"
+            app:destination="@id/orderChooseServicesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderChooseServicesFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.orderhelper.orderchooseservices.OrderChooseServicesFragment"
+        android:label="აირჩიეთ სერვისები"
+        tools:layout="@layout/fragment_order_choose_services" >
+        <action
+            android:id="@+id/action_orderChooseServicesFragment_to_orderCheckFinalFragment"
+            app:destination="@id/orderCheckFinalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderCheckFinalFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.orderhelper.ordercheck.OrderCheckFinalFragment"
+        android:label="შეკვეთის დეტალები"
+        tools:layout="@layout/fragment_order_check_final" >
+        <action
+            android:id="@+id/action_orderCheckFinalFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

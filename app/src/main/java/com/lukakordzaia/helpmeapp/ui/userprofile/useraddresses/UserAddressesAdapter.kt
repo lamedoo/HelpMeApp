@@ -16,7 +16,7 @@ class UserAddressesAdapter(
 ) : RecyclerView.Adapter<UserAddressesAdapter.ViewHolder>() {
     private var list: List<String> = ArrayList()
 
-    fun setHelpersList(list : List<String>) {
+    fun setAddressList(list : List<String>) {
         this.list = list
         notifyDataSetChanged()
     }

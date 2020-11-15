@@ -1,23 +1,34 @@
 package com.lukakordzaia.helpmeapp.ui.helperdetails
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelperDetailRepository
+import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
+import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.coroutines.launch
 
-class HelperDetailsViewModel(application: Application) : AndroidViewModel(application) {
+class HelperDetailsViewModel : BaseViewModel() {
     private val repository = HelperDetailRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _helperData = MutableLiveData<Helpers>()
 
     val showProgress : LiveData<Boolean> = _showProgress
     val helperData : LiveData<Helpers> = _helperData
+
+    init {
+        AppPreferences.helper_name = ""
+        AppPreferences.helper_id = ""
+    }
+
+    fun onOrderPressed(helperId: Int, helperName: String) {
+        navigateToNewFragment(HelperDetailsFragmentDirections.actionHelperDetailsFragmentToOrderChooseDetailsFragment())
+        AppPreferences.helper_name = helperName
+        AppPreferences.helper_id = helperId.toString()
+    }
 
     fun getSingleHelper(helperId: Int) {
         viewModelScope.launch {

@@ -61,12 +61,12 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
         rv_addresses.adapter = adapter
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
-            adapter.setHelpersList(it)
+            adapter.setAddressList(it)
         })
 
-        viewModel.showProgress.observe(viewLifecycleOwner, Observer {
-            pb_addresses.setVisibleOrGone(it)
-        })
+//        viewModel.showProgress.observe(viewLifecycleOwner, Observer {
+//            pb_addresses.setVisibleOrGone(it)
+//        })
 
         viewModel.noAddress.observe(viewLifecycleOwner, Observer {
             tv_users_address_none.setVisibleOrGone(it)

@@ -3,13 +3,14 @@ package com.lukakordzaia.helpmeapp.ui.helperdetails
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
+import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.navController
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_helper_details.*
@@ -50,7 +51,10 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
         })
 
         btn_helper_details_order.setOnClickListener {
-            Toast.makeText(context, "Thank you for ordering", Toast.LENGTH_SHORT).show()
+            viewModel.onOrderPressed(helperId, viewModel.helperData.value!!.name)
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
         }
     }
 

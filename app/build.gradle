@@ -90,6 +90,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation("com.ericktijerou.koleton:koleton:0.8.1")
+    implementation "com.ncorti:slidetoact:0.9.0"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
