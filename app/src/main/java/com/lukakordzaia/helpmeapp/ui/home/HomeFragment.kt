@@ -32,6 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         adapter = HomeAdapter(requireContext()) { helperId ->
             viewModel.onHelpersPressed(helperId)
+
             viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
                 navController(it)
             })
@@ -39,8 +40,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rv_top_helpers.loadSkeleton(R.layout.rv_top_helpers_item)
         rv_top_helpers.adapter = adapter
 
-        btn_main_chooseHelpers.setOnClickListener {
-
+        btn_main_chooseServices.setOnClickListener {
             val chooseCleaningOptionsFragment = ChooseCleaningOptionsFragment()
             chooseCleaningOptionsFragment.show(childFragmentManager, chooseCleaningOptionsFragment.tag)
         }

@@ -38,6 +38,7 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
             if (!it) {
                 helper_details_top.setVisibleOrGone(true)
                 helper_details_reviews.setVisibleOrGone(true)
+                btn_helper_details_order.setVisibleOrGone(true)
             }
         })
 

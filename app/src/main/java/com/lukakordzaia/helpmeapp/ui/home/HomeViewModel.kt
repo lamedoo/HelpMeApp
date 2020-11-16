@@ -19,21 +19,21 @@ class HomeViewModel: BaseViewModel() {
     val showProgress : LiveData<Boolean> = _showProgress
     val topHelpersList : LiveData<List<Helpers>> = _topHelpersList
 
-//    init {
-//        AppPreferences.helper_name = ""
-//        AppPreferences.helper_id = ""
-//        AppPreferences.order_date = ""
-//        AppPreferences.order_address = ""
-//        AppPreferences.service_kitchen = 0
-//        AppPreferences.service_living = 0
-//        AppPreferences.service_studio = 0
-//        AppPreferences.service_bedroom = 0
-//        AppPreferences.service_bathroom = 0
-//        AppPreferences.service_office = 0
-//    }
+    init {
+        AppPreferences.helper_name = ""
+        AppPreferences.helper_id = ""
+        AppPreferences.order_date = ""
+        AppPreferences.order_address = ""
+        AppPreferences.service_kitchen = 0
+        AppPreferences.service_living = 0
+        AppPreferences.service_studio = 0
+        AppPreferences.service_bedroom = 0
+        AppPreferences.service_bathroom = 0
+        AppPreferences.service_office = 0
+    }
 
     fun onHelpersPressed(helperId: Int) {
-        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelperDetailsFragment(helperId))
+        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToTopHelperDetailsFragment(helperId))
     }
 
     fun onChooseServicesPressed(cleaningOption: String) {

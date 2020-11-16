@@ -8,6 +8,7 @@ import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelpersRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
+import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.coroutines.launch
 
 class HelpersViewModel : BaseViewModel() {
@@ -17,6 +18,10 @@ class HelpersViewModel : BaseViewModel() {
 
     val showProgress : LiveData<Boolean> = _showProgress
     val helpersList : LiveData<List<Helpers>> = _helpersList
+
+    init {
+        getAllHelpers()
+    }
 
     fun onHelperPressed(helperId: Int) {
         navigateToNewFragment(HelpersFragmentDirections.actionHelpersFragmentToHelperDetailsFragment(helperId))
@@ -28,12 +33,28 @@ class HelpersViewModel : BaseViewModel() {
                 is Result.Success -> {
                     _showProgress.value = false
                     _helpersList.value = retrofit.data
+
+                    if (AppPreferences.helper_id != "") {
+                        val data = helpersList.value?.filter {
+                            it.name.contains(AppPreferences.helper_name, true)
+                        }
+                        _helpersList.value = data
+                    }
                 }
                 is Result.Error -> {
                     _showProgress.value = false
                     Log.d("error", "error")
                 }
             }
+        }
+    }
+
+    fun getSingleTopHelper() {
+        if (AppPreferences.helper_id != "") {
+            val data = helpersList.value?.filter {
+                it.name.contains("brad", true)
+            }
+            _helpersList.value = data
         }
     }
 

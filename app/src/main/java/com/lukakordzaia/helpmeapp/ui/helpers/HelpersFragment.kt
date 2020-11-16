@@ -1,6 +1,5 @@
 package com.lukakordzaia.helpmeapp.ui.helpers
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lukakordzaia.helpmeapp.R
-import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.navController
 import koleton.api.hideSkeleton
@@ -31,7 +29,6 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HelpersViewModel::class.java)
 
-        viewModel.getAllHelpers()
         adapter = HelpersAdapter(requireContext()) { helperId ->
             viewModel.onHelperPressed(helperId)
             viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {

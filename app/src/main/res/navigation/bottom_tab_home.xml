@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_homeFragment_to_orderChooseDetailsFragment"
             app:destination="@id/orderChooseDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_topHelperDetailsFragment"
+            app:destination="@id/topHelperDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/helpersFragment"
@@ -102,4 +105,17 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+    <dialog
+        android:id="@+id/topHelperDetailsFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.home.tophelper.TopHelperDetailsFragment"
+        android:label="fragment_top_helper_details"
+        tools:layout="@layout/fragment_top_helper_details">
+        <argument
+            android:name="helperId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_topHelperDetailsFragment_to_orderChooseDetailsFragment"
+            app:destination="@id/orderChooseDetailsFragment" />
+    </dialog>
 </navigation>
