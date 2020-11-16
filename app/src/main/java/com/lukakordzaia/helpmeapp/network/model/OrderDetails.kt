@@ -1,6 +1,7 @@
 package com.lukakordzaia.helpmeapp.network.model
 
 data class OrderDetails (
+    val orderCleaningOption: String,
     val orderDate: String,
     val orderAddress: String,
     val orderHelper: String,

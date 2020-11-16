@@ -30,6 +30,12 @@ class OrderCheckFinalFragment : Fragment(R.layout.fragment_order_check_final) {
             tv_check_final_bedroom.text = it.orderServices.bedroom.toString()
             tv_check_final_bathroom.text = it.orderServices.bathroom.toString()
             tv_check_final_office.text = it.orderServices.office.toString()
+
+            if (it.orderCleaningOption == "Renovation") {
+                tv_check_final_cleaning_option.text = "რემონტის შემდგომი დალაგება"
+            } else {
+                tv_check_final_cleaning_option.text = "სტანდარტული დალაგება"
+            }
         })
 
             check_final_confirm.onSlideCompleteListener = object : OnSlideCompleteListener {

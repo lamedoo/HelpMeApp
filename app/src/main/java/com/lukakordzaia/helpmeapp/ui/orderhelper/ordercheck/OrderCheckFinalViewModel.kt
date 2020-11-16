@@ -19,6 +19,7 @@ class OrderCheckFinalViewModel : BaseViewModel() {
 
     init {
         _orderDetails.value = OrderDetails(
+            AppPreferences.order_cleaning_option,
             AppPreferences.order_date,
             AppPreferences.order_address,
             AppPreferences.helper_name,

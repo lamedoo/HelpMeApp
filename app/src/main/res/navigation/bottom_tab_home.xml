@@ -11,10 +11,6 @@
         android:label="მთავარი"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_helpersFragment"
-            app:destination="@id/helpersFragment"
-            app:popUpTo="@id/homeFragment"/>
-        <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/homeFragment"/>
@@ -22,6 +18,9 @@
             android:id="@+id/action_homeFragment_to_helperDetailsFragment"
             app:destination="@id/helperDetailsFragment"
             app:popUpTo="@id/homeFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_orderChooseDetailsFragment"
+            app:destination="@id/orderChooseDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/helpersFragment"
@@ -43,8 +42,8 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_helperDetailsFragment_to_orderChooseDetailsFragment"
-            app:destination="@id/orderChooseDetailsFragment" />
+            android:id="@+id/action_helperDetailsFragment_to_orderCheckFinalFragment"
+            app:destination="@id/orderCheckFinalFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -59,7 +58,7 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -89,8 +88,8 @@
         android:label="აირჩიეთ სერვისები"
         tools:layout="@layout/fragment_order_choose_services" >
         <action
-            android:id="@+id/action_orderChooseServicesFragment_to_orderCheckFinalFragment"
-            app:destination="@id/orderCheckFinalFragment" />
+            android:id="@+id/action_orderChooseServicesFragment_to_helpersFragment"
+            app:destination="@id/helpersFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderCheckFinalFragment"

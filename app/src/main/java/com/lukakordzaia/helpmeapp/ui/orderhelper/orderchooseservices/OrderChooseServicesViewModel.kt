@@ -32,7 +32,7 @@ class OrderChooseServicesViewModel : BaseViewModel() {
         if (kitchen == 0 && living == 0 && studio == 0 && bedroom == 0 && bathroom == 0 && office == 0){
             newToastMessage("გთხოვთ, აირჩიოთ მინიმუმ ერთი ოთახი")
         } else {
-            navigateToNewFragment(OrderChooseServicesFragmentDirections.actionOrderChooseServicesFragmentToOrderCheckFinalFragment())
+            navigateToNewFragment(OrderChooseServicesFragmentDirections.actionOrderChooseServicesFragmentToHelpersFragment())
         }
     }
 

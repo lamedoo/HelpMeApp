@@ -1,11 +1,13 @@
 package com.lukakordzaia.helpmeapp.ui.orderhelper.orderchoosedetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lukakordzaia.helpmeapp.R
+import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.createToast
 import com.lukakordzaia.helpmeapp.utils.navController
@@ -47,5 +49,15 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
                 }
             }
         })
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).hideBottomNavigation()
+    }
+
+    override fun onDetach() {
+        (activity as MainActivity).showBottomNavigation()
+        super.onDetach()
     }
 }

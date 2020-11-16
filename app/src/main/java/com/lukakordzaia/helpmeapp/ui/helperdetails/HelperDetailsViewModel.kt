@@ -25,7 +25,7 @@ class HelperDetailsViewModel : BaseViewModel() {
     }
 
     fun onOrderPressed(helperId: Int, helperName: String) {
-        navigateToNewFragment(HelperDetailsFragmentDirections.actionHelperDetailsFragmentToOrderChooseDetailsFragment())
+        navigateToNewFragment(HelperDetailsFragmentDirections.actionHelperDetailsFragmentToOrderCheckFinalFragment())
         AppPreferences.helper_name = helperName
         AppPreferences.helper_id = helperId.toString()
     }

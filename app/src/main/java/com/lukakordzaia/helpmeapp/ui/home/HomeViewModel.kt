@@ -8,6 +8,7 @@ import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelpersRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
+import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.coroutines.launch
 
 class HomeViewModel: BaseViewModel() {
@@ -18,12 +19,26 @@ class HomeViewModel: BaseViewModel() {
     val showProgress : LiveData<Boolean> = _showProgress
     val topHelpersList : LiveData<List<Helpers>> = _topHelpersList
 
+//    init {
+//        AppPreferences.helper_name = ""
+//        AppPreferences.helper_id = ""
+//        AppPreferences.order_date = ""
+//        AppPreferences.order_address = ""
+//        AppPreferences.service_kitchen = 0
+//        AppPreferences.service_living = 0
+//        AppPreferences.service_studio = 0
+//        AppPreferences.service_bedroom = 0
+//        AppPreferences.service_bathroom = 0
+//        AppPreferences.service_office = 0
+//    }
+
     fun onHelpersPressed(helperId: Int) {
         navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelperDetailsFragment(helperId))
     }
 
-    fun onChooseServicesPressed() {
-        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelpersFragment())
+    fun onChooseServicesPressed(cleaningOption: String) {
+        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToOrderChooseDetailsFragment())
+        AppPreferences.order_cleaning_option = cleaningOption
     }
 
     fun onSettingsPressed() {

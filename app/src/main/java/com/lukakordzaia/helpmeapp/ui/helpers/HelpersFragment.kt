@@ -88,14 +88,4 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
 
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        (activity as MainActivity).showBottomNavigation()
-        super.onDetach()
-    }
 }

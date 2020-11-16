@@ -24,15 +24,19 @@ class ChooseCleaningOptionsFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.onChooseServicesPressed()
 
-        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {navigation ->
-            tv_choose_cleaning_renovation.setOnClickListener {
+        tv_choose_cleaning_renovation.setOnClickListener {
+            viewModel.onChooseServicesPressed("Renovation")
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {navigation ->
                 navController(navigation)
-            }
-            tv_choose_cleaning_standard.setOnClickListener {
+            })
+
+        }
+        tv_choose_cleaning_standard.setOnClickListener {
+            viewModel.onChooseServicesPressed("Standard")
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {navigation ->
                 navController(navigation)
-            }
-        })
+            })
+        }
     }
 }
