@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/progress_dot_1"
-        android:contentDescription="dot"
+        android:contentDescription="@string/order_progress_dot"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:background="@drawable/order_progress_dot"
@@ -19,7 +19,7 @@
 
     <ImageView
         android:id="@+id/progress_dot_2"
-        android:contentDescription="dot"
+        android:contentDescription="@string/order_progress_dot"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_marginRight="5dp"
@@ -31,7 +31,7 @@
 
     <ImageView
         android:id="@+id/progress_dot_3"
-        android:contentDescription="dot"
+        android:contentDescription="@string/order_progress_dot"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:background="@drawable/order_progress_dot"
