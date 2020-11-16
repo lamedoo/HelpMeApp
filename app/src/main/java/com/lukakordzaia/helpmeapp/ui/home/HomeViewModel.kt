@@ -22,7 +22,7 @@ class HomeViewModel: BaseViewModel() {
         navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelperDetailsFragment(helperId))
     }
 
-    fun onHelpersListPressed() {
+    fun onChooseServicesPressed() {
         navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToHelpersFragment())
     }
 

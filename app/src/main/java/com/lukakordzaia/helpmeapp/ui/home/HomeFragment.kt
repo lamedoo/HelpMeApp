@@ -40,10 +40,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rv_top_helpers.adapter = adapter
 
         btn_main_chooseHelpers.setOnClickListener {
-            viewModel.onHelpersListPressed()
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
+
+            val chooseCleaningOptionsFragment = ChooseCleaningOptionsFragment()
+            chooseCleaningOptionsFragment.show(childFragmentManager, chooseCleaningOptionsFragment.tag)
         }
 
         viewModel.showProgress.observe(viewLifecycleOwner, Observer {
