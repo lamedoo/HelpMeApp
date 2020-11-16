@@ -3,6 +3,7 @@ package com.lukakordzaia.helpmeapp.ui.helperdetails
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import com.lukakordzaia.helpmeapp.utils.navController
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_helper_details.*
+import kotlinx.android.synthetic.main.order_fragments_progress_dots.*
 
 class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
     private lateinit var viewModel: HelperDetailsViewModel
@@ -57,6 +59,10 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
                 navController(it)
             })
         }
+
+        progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
+        progress_dot_2.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
+        progress_dot_3.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
     }
 
     override fun onAttach(context: Context) {

@@ -52,7 +52,7 @@
         android:id="@+id/choose_cleaning_options_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?colorPrimary"
+        android:background="#5EA8A7A7"
         app:layout_constraintTop_toBottomOf="@id/tv_choose_cleaning_renovation"/>
 
     <ImageView

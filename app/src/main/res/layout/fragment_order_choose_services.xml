@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:padding="10dp"
+    android:layout_margin="8dp"
     tools:context=".ui.orderhelper.orderchooseservices.OrderChooseServicesFragment"
     android:background="?colorPrimary">
 
@@ -27,14 +28,20 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <include
+        layout="@layout/order_fragments_progress_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/btn_order_helper_services_next"
+        app:layout_constraintTop_toTopOf="@id/btn_order_helper_services_next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <ImageView
         android:id="@+id/btn_order_helper_services_next"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:padding="5dp"
-        android:background="@color/teal_700"
-        android:src="@drawable/arrow_icon"
-        app:tint="@color/white"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/next_button"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

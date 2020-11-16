@@ -8,15 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lukakordzaia.helpmeapp.R
+import com.lukakordzaia.helpmeapp.network.model.ServicesList
 import kotlinx.android.synthetic.main.rv_choose_services_item.view.*
 
 class OrderChooseServicesAdapter(
     private val context: Context,
     private val onCounterClick: (serviceName: String, amount: Int) -> Unit
 ) : RecyclerView.Adapter<OrderChooseServicesAdapter.ViewHolder>() {
-    private var list: List<String> = ArrayList()
+    private var list: MutableList<ServicesList> = ArrayList()
 
-    fun setServicesList(list: List<String>) {
+    fun setServicesList(list: MutableList<ServicesList>) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -30,20 +31,20 @@ class OrderChooseServicesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listModel = list[position]
-        var counter = 0
-        holder.serviceCounterTextView.text = counter.toString()
 
-        holder.serviceTitleTextView.text = listModel
+        holder.serviceTitleTextView.text = listModel.serviceName
+        holder.serviceCounterTextView.text = listModel.serviceCount.toString()
+
         holder.serviceCounterPlus.setOnClickListener {
-            counter++
-            holder.serviceCounterTextView.text = counter.toString()
-            onCounterClick(listModel, counter)
+            listModel.serviceCount++
+            holder.serviceCounterTextView.text = listModel.serviceCount.toString()
+            onCounterClick(listModel.serviceName, listModel.serviceCount)
         }
         holder.serviceCounterMinus.setOnClickListener {
-            if (counter != 0) {
-                counter--
-                holder.serviceCounterTextView.text = counter.toString()
-                onCounterClick(listModel, counter)
+            if (listModel.serviceCount != 0) {
+                listModel.serviceCount--
+                holder.serviceCounterTextView.text = listModel.serviceCount.toString()
+                onCounterClick(listModel.serviceName, listModel.serviceCount)
             }
         }
     }

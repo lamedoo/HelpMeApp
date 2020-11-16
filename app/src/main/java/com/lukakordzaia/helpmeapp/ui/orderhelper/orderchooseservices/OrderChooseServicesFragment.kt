@@ -2,6 +2,7 @@ package com.lukakordzaia.helpmeapp.ui.orderhelper.orderchooseservices
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.createToast
 import com.lukakordzaia.helpmeapp.utils.navController
 import kotlinx.android.synthetic.main.fragment_order_choose_services.*
+import kotlinx.android.synthetic.main.order_fragments_progress_dots.*
 
 
 class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_services) {
@@ -24,6 +26,7 @@ class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_serv
         }
         rv_choose_services.adapter = adapter
 
+        viewModel.setServicesList()
         viewModel.servicesList.observe(viewLifecycleOwner, Observer {
             adapter.setServicesList(it)
         })
@@ -37,5 +40,8 @@ class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_serv
                 navController(it)
             })
         }
+
+        progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
+        progress_dot_2.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
     }
 }

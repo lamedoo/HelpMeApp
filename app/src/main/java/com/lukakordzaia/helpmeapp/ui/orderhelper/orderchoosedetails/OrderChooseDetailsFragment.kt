@@ -3,6 +3,7 @@ package com.lukakordzaia.helpmeapp.ui.orderhelper.orderchoosedetails
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.createToast
 import com.lukakordzaia.helpmeapp.utils.navController
 import kotlinx.android.synthetic.main.fragment_order_choose_details.*
+import kotlinx.android.synthetic.main.order_fragments_progress_dots.*
 
 
 class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_details) {
@@ -22,7 +24,11 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(OrderChooseDetailsViewModel::class.java)
 
-        order_helper_date.minDate = (System.currentTimeMillis() + 48*60*60*1000)
+        order_helper_date.apply {
+            this.minDate = (System.currentTimeMillis() + 48*60*60*1000)
+            this.maxDate = (System.currentTimeMillis() + 7*24*60*60*1000)
+        }
+
 
         viewModel.getUserAddresses()
         adapter = OrderChooseDetailsAdapter(requireContext()) {
@@ -33,9 +39,10 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
             adapter.setAddressList(it)
         })
 
-        viewModel.chooseAddress.observe(viewLifecycleOwner, Observer { address ->
-            btn_order_helper_details_next.setOnClickListener {
-                if (!address.isNullOrEmpty()) {
+        viewModel.addressNameNull()
+        viewModel.chosenAddress.observe(viewLifecycleOwner, EventObserver {address ->
+            if (!address.isNullOrBlank()) {
+                btn_order_helper_details_next.setOnClickListener {
                     viewModel.saveChosenDateAddress(
                         "${order_helper_date.dayOfMonth}/${order_helper_date.month + 1}/${order_helper_date.year}",
                         "$address"
@@ -44,11 +51,15 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
                     viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
                         navController(it)
                     })
-                } else {
+                }
+            } else {
+                btn_order_helper_details_next.setOnClickListener {
                     context.createToast("გთხოვთ აირჩიოთ მისამართი")
                 }
             }
         })
+
+        progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
     }
 
     override fun onAttach(context: Context) {

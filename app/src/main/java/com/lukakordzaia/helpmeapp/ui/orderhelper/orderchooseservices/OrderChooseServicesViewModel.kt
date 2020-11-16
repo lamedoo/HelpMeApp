@@ -3,16 +3,16 @@ package com.lukakordzaia.helpmeapp.ui.orderhelper.orderchooseservices
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.lukakordzaia.helpmeapp.network.model.ServicesList
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import com.lukakordzaia.helpmeapp.utils.AppPreferences
 
 class OrderChooseServicesViewModel : BaseViewModel() {
-    private var _servicesList = MutableLiveData<List<String>>()
+    private var _servicesList = MutableLiveData<MutableList<ServicesList>>()
 
-    val servicesList: LiveData<List<String>> = _servicesList
+    val servicesList: LiveData<MutableList<ServicesList>> = _servicesList
 
     init {
-        setServicesList()
         AppPreferences.service_kitchen = 0
         AppPreferences.service_living = 0
         AppPreferences.service_studio = 0
@@ -48,14 +48,21 @@ class OrderChooseServicesViewModel : BaseViewModel() {
         }
     }
 
-    private fun setServicesList() {
-        val services: MutableList<String> = mutableListOf(
-            "სამზარეულო",
-            "მისაღები",
-            "სტუდიო",
-            "საძინებელი",
-            "სააბაზანო",
-            "კაბინეტი")
-        _servicesList.value = services
+    fun setServicesList() {
+        val kitchen = ServicesList("სამზარეულო", AppPreferences.service_kitchen)
+        val living = ServicesList("მისაღები", AppPreferences.service_living)
+        val studio = ServicesList("სტუდიო", AppPreferences.service_studio)
+        val bedroom = ServicesList("საძინებელი", AppPreferences.service_bedroom)
+        val bathroom = ServicesList("სააბაზანო", AppPreferences.service_bathroom)
+        val office = ServicesList("კაბინეტი", AppPreferences.service_office)
+
+        _servicesList.value = mutableListOf(
+            kitchen,
+            living,
+            studio,
+            bedroom,
+            bathroom,
+            office
+        )
     }
 }
