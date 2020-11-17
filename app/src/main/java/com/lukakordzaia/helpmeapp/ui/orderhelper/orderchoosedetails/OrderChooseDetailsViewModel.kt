@@ -20,8 +20,8 @@ class OrderChooseDetailsViewModel : BaseViewModel() {
     val addressList: LiveData<List<String>> = _addressList
 
 
-    fun saveChosenDateAddress(date: String, address: String) {
-        AppPreferences.order_date = date
+    fun saveChosenDateAddress(address: String) {
+//        AppPreferences.order_date = date
         AppPreferences.order_address = address
     }
 

@@ -24,10 +24,10 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(OrderChooseDetailsViewModel::class.java)
 
-        order_helper_date.apply {
-            this.minDate = (System.currentTimeMillis() + 48*60*60*1000)
-            this.maxDate = (System.currentTimeMillis() + 7*24*60*60*1000)
-        }
+//        order_helper_date.apply {
+//            this.minDate = (System.currentTimeMillis() + 48*60*60*1000)
+//            this.maxDate = (System.currentTimeMillis() + 7*24*60*60*1000)
+//        }
 
 
         viewModel.getUserAddresses()
@@ -44,7 +44,7 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
             if (!address.isNullOrBlank()) {
                 btn_order_helper_details_next.setOnClickListener {
                     viewModel.saveChosenDateAddress(
-                        "${order_helper_date.dayOfMonth}/${order_helper_date.month + 1}/${order_helper_date.year}",
+//                        "${order_helper_date.dayOfMonth}/${order_helper_date.month + 1}/${order_helper_date.year}",
                         "$address"
                     )
                     viewModel.onSliderCompleted()
