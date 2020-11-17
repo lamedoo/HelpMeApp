@@ -71,6 +71,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_user_address_add"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/add_icon"
+        app:tint="?colorOnPrimary"
+        app:layout_constraintTop_toBottomOf="@id/order_helper_address_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <include
         layout="@layout/order_fragments_progress_dots"
         android:layout_width="wrap_content"

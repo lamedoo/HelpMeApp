@@ -31,6 +31,13 @@
         <action
             android:id="@+id/action_userAddressesFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_userAddressesFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addNewAddressFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.shared.AddNewAddressFragment"
+        android:label="ახალი მისამართი" />
 
 </navigation>

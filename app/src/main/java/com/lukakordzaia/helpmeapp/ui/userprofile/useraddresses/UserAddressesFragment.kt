@@ -1,25 +1,18 @@
 package com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses
 
-import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.createToast
+import com.lukakordzaia.helpmeapp.utils.navController
 import com.lukakordzaia.helpmeapp.utils.setVisibleOrGone
 import kotlinx.android.synthetic.main.fragment_user_addresses.*
 
@@ -44,15 +37,15 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
         viewModel.getUserAddresses()
         adapter = UserAddressesAdapter(requireContext()) {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Are you sure you want to Delete?")
+            builder.setMessage("ნამდვილად გსურთ მისამართის წაშლა?")
                 .setCancelable(false)
-                .setPositiveButton("Yes") { _, _ ->
+                .setPositiveButton("დიახ") { _, _ ->
                     viewModel.deleteSingleAddress(it)
                     viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
                         context.createToast(it)
                     })
                 }
-                .setNegativeButton("No") { dialog, _ ->
+                .setNegativeButton("არა") { dialog, _ ->
                     dialog.dismiss()
                 }
             val alert = builder.create()
@@ -64,46 +57,16 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
             adapter.setAddressList(it)
         })
 
-//        viewModel.showProgress.observe(viewLifecycleOwner, Observer {
-//            pb_addresses.setVisibleOrGone(it)
-//        })
-
         viewModel.noAddress.observe(viewLifecycleOwner, Observer {
             tv_users_address_none.setVisibleOrGone(it)
         })
 
         fab_user_address_add.setOnClickListener {
-            val fields = listOf(Place.Field.ID, Place.Field.NAME)
-            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                .build(requireContext())
-            startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+            viewModel.onAddNewAddressPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    data?.let {
-                        val place = Autocomplete.getPlaceFromIntent(data)
-                        place.name?.let { viewModel.addAddressToFirestore(it) }
-                        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                            context.createToast(it)
-                        })
-                    }
-                }
-                AutocompleteActivity.RESULT_ERROR -> {
-                    data?.let {
-                        val status = Autocomplete.getStatusFromIntent(data)
-                        status.statusMessage?.let { it1 -> Log.i(TAG, it1) }
-                    }
-                }
-                Activity.RESULT_CANCELED -> {
-                }
-            }
-            return
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onAttach(context: Context) {

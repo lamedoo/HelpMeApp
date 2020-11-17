@@ -44,7 +44,6 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
             if (!address.isNullOrBlank()) {
                 btn_order_helper_details_next.setOnClickListener {
                     viewModel.saveChosenDateAddress(
-//                        "${order_helper_date.dayOfMonth}/${order_helper_date.month + 1}/${order_helper_date.year}",
                         "$address"
                     )
                     viewModel.onSliderCompleted()
@@ -58,6 +57,13 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
                 }
             }
         })
+
+        fab_user_address_add.setOnClickListener {
+            viewModel.onAddAddressPressed()
+            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                navController(it)
+            })
+        }
 
         progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)
     }

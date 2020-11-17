@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_orderChooseDetailsFragment_to_orderChooseServicesFragment"
             app:destination="@id/orderChooseServicesFragment" />
+        <action
+            android:id="@+id/action_orderChooseDetailsFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderChooseServicesFragment"
@@ -118,4 +121,8 @@
             android:id="@+id/action_topHelperDetailsFragment_to_orderChooseDetailsFragment"
             app:destination="@id/orderChooseDetailsFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/addNewAddressFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.shared.AddNewAddressFragment"
+        android:label="ახალი მისამართი" />
 </navigation>

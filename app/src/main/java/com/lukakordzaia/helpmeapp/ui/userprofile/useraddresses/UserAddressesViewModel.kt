@@ -20,6 +20,10 @@ class UserAddressesViewModel : BaseViewModel() {
     val noAddress: LiveData<Boolean> = _noAddress
     val addressList: LiveData<List<String>> = _addressList
 
+    fun onAddNewAddressPressed() {
+        navigateToNewFragment(UserAddressesFragmentDirections.actionUserAddressesFragmentToAddNewAddressFragment())
+    }
+
     fun addAddressToFirestore(address: String) {
         val currentUser = Firebase.auth.currentUser?.uid
         viewModelScope.launch {

@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_helperDetailsFragment_to_orderCheckFinalFragment"
             app:destination="@id/orderCheckFinalFragment" />
+        <action
+            android:id="@+id/action_orderChooseDetailsFragment_to_userAddressesFragment"
+            app:destination="@id/userAddressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -107,7 +110,14 @@
         <action
             android:id="@+id/action_userAddressesFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_userAddressesFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addNewAddressFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.shared.AddNewAddressFragment"
+        android:label="ახალი მისამართი" />
     <fragment
         android:id="@+id/orderChooseDetailsFragment"
         android:name="com.lukakordzaia.helpmeapp.ui.orderhelper.orderchoosedetails.OrderChooseDetailsFragment"
@@ -116,6 +126,9 @@
         <action
             android:id="@+id/action_orderChooseDetailsFragment_to_orderChooseServicesFragment"
             app:destination="@id/orderChooseServicesFragment" />
+        <action
+            android:id="@+id/action_orderChooseDetailsFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderChooseServicesFragment"

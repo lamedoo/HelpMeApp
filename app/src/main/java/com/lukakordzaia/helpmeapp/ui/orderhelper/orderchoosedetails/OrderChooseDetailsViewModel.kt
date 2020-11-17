@@ -21,8 +21,11 @@ class OrderChooseDetailsViewModel : BaseViewModel() {
 
 
     fun saveChosenDateAddress(address: String) {
-//        AppPreferences.order_date = date
         AppPreferences.order_address = address
+    }
+
+    fun onAddAddressPressed() {
+        navigateToNewFragment(OrderChooseDetailsFragmentDirections.actionOrderChooseDetailsFragmentToAddNewAddressFragment())
     }
 
     fun onSliderCompleted() {

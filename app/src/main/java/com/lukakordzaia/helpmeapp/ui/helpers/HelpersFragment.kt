@@ -16,6 +16,7 @@ import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
 import kotlinx.android.synthetic.main.fragment_helpers.*
 
+
 class HelpersFragment : Fragment(R.layout.fragment_helpers) {
     private lateinit var viewModel: HelpersViewModel
     private lateinit var adapter: HelpersAdapter
@@ -48,6 +49,10 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         viewModel.helpersList.observe(viewLifecycleOwner, Observer {
             adapter.setHelpersList(it)
         })
+
+        btn_helpers_pick_date.setOnClickListener {
+            viewModel.onDatePickerPressed(requireContext())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -62,6 +67,7 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
                 searchView.clearFocus()
                 return true
             }
+
             override fun onQueryTextChange(query: String?): Boolean {
                 if (query != null) {
                     if (query.isEmpty()) {
