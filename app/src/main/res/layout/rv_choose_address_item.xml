@@ -22,7 +22,7 @@
         android:id="@+id/tv_choose_address_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:text="Address #1"
         android:textColor="?colorOnPrimary"
         android:textSize="18sp"

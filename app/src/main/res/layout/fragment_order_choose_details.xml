@@ -82,6 +82,7 @@
 
     <ImageView
         android:id="@+id/btn_order_helper_details_next"
+        android:contentDescription="@string/next_button"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:background="@drawable/next_button"

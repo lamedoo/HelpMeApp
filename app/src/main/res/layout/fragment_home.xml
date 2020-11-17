@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="70dp"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:background="@drawable/main_helpers_button_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="აირჩიე შენზე მორგებული        სერვისი"
+            android:text="აირჩიე შენზე მორგებული    სერვისი"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:gravity="center"

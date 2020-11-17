@@ -12,7 +12,7 @@
         android:background="@drawable/order_progress_dot"
         app:layout_constraintEnd_toStartOf="@+id/progress_dot_2"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         android:contentDescription="@string/order_progress_dot"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/order_progress_dot"
         app:layout_constraintEnd_toStartOf="@id/progress_dot_3"
         app:layout_constraintHorizontal_bias="0.5"

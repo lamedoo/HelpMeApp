@@ -36,6 +36,8 @@
         android:layout_marginBottom="30dp"
         android:src="@drawable/add_icon"
         app:tint="?colorOnPrimary"
+        android:outlineAmbientShadowColor="?colorOnPrimary"
+        android:outlineSpotShadowColor="?colorOnSecondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
