@@ -35,17 +35,15 @@ class UserProfileViewModel: BaseViewModel() {
     }
 
     fun getUserDataFromRoom(context: Context) : LiveData<Users> {
-        val currentUser = Firebase.auth.currentUser?.uid
         val roomDBUserData = HelpMeAppDatabase.getDatabase(context)?.getDao()
         _showProgress.value = false
 
-        return repository.getUserDataFromRoom(roomDBUserData!!, currentUser!!)
+        return repository.getUserDataFromRoom(roomDBUserData!!, currentUserId()!!)
     }
 
     fun addUserChangeListener(context: Context){
-        val currentUser = Firebase.auth.currentUser?.uid
 
-        repository.getUserData(context, currentUser!!, object: FirebaseCallBack {
+        repository.getUserData(context, currentUserId()!!, object: FirebaseCallBack {
             override fun onCallback(userData: MutableMap<String, Any>) {
                 _showProgress.value = false
                 _userDataList.value = UserRegister(

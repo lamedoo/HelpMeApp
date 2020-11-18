@@ -24,14 +24,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Address #1"
+        android:text="Address Name"
         android:textColor="?colorOnPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_user_address"
         app:layout_constraintEnd_toStartOf="@id/iv_user_address_delete"/>
+
+    <TextView
+        android:id="@+id/tv_user_address_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Address Details"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_address_title"
+        app:layout_constraintStart_toEndOf="@id/iv_user_address"
+        app:layout_constraintEnd_toStartOf="@id/iv_user_address_delete"/>
+
 
     <ImageView
         android:id="@+id/iv_user_address_delete"

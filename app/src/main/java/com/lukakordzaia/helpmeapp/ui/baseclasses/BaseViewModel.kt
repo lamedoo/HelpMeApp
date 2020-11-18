@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.utils.Event
 
 abstract class BaseViewModel : ViewModel() {
@@ -25,5 +27,9 @@ abstract class BaseViewModel : ViewModel() {
 
     fun chooseNewAddress(address: String?) {
         _chosenAddress.value = Event(address)
+    }
+
+    fun currentUserId(): String? {
+        return Firebase.auth.currentUser?.uid
     }
 }

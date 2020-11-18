@@ -5,19 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.FirestoreAddressesCallBack
-import com.lukakordzaia.helpmeapp.repository.OrderChooseDetailsRepository
+import com.lukakordzaia.helpmeapp.network.model.Address
+import com.lukakordzaia.helpmeapp.repository.UserAddressRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import com.lukakordzaia.helpmeapp.utils.AppPreferences
 
 class OrderChooseDetailsViewModel : BaseViewModel() {
-    private val repository = OrderChooseDetailsRepository()
+    private val repository = UserAddressRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _noAddress = MutableLiveData<Boolean>()
-    private val _addressList = MutableLiveData<List<String>>()
+    private val _addressList = MutableLiveData<List<Address>>()
 
     val showProgress: LiveData<Boolean> = _showProgress
     val noAddress: LiveData<Boolean> = _noAddress
-    val addressList: LiveData<List<String>> = _addressList
+    val addressList: LiveData<List<Address>> = _addressList
 
 
     fun saveChosenDateAddress(address: String) {
@@ -45,11 +46,11 @@ class OrderChooseDetailsViewModel : BaseViewModel() {
         _showProgress.value = false
 
         repository.getUserAddress(currentUser!!, object : FirestoreAddressesCallBack {
-            override fun onCallback(addresses: MutableList<*>) {
-                val allAddresses: MutableList<String> = ArrayList()
+            override fun onCallback(addresses: MutableList<Address>) {
+                val allAddresses: MutableList<Address> = ArrayList()
                 if (!addresses.isNullOrEmpty()) {
                     addresses.forEach {
-                        allAddresses.add(it.toString())
+                        allAddresses.add(Address(it.id, it.address, it.details))
                     }
                     _noAddress.value = false
                     _addressList.value = allAddresses

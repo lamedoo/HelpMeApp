@@ -3,31 +3,33 @@ package com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.FirestoreAddressesCallBack
-import com.lukakordzaia.helpmeapp.repository.UserProfileEditRepository
+import com.lukakordzaia.helpmeapp.network.model.Address
+import com.lukakordzaia.helpmeapp.repository.UserAddressRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
 import kotlinx.coroutines.launch
 
 class UserAddressesViewModel : BaseViewModel() {
-    private val repository = UserProfileEditRepository()
+    private val repository = UserAddressRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _noAddress = MutableLiveData<Boolean>()
-    private val _addressList = MutableLiveData<List<String>>()
+    private val _addressList = MutableLiveData<List<Address>>()
 
     val showProgress: LiveData<Boolean> = _showProgress
     val noAddress: LiveData<Boolean> = _noAddress
-    val addressList: LiveData<List<String>> = _addressList
+    val addressList: LiveData<List<Address>> = _addressList
 
     fun onAddNewAddressPressed() {
         navigateToNewFragment(UserAddressesFragmentDirections.actionUserAddressesFragmentToAddNewAddressFragment())
     }
 
+    fun onSingleAddressPressed(addressId: String) {
+        navigateToNewFragment(UserAddressesFragmentDirections.actionUserAddressesFragmentToSingleUserAddressFragment(addressId))
+    }
+
     fun addAddressToFirestore(address: String) {
-        val currentUser = Firebase.auth.currentUser?.uid
         viewModelScope.launch {
-            val saveUserAddress = repository.saveUserAddress(currentUser!!, address)
+            val saveUserAddress = repository.addUserAddress(currentUserId()!!, address)
             if (saveUserAddress) {
                 newToastMessage("მისამართი წარმატებით დაემატა")
             } else {
@@ -36,10 +38,9 @@ class UserAddressesViewModel : BaseViewModel() {
         }
     }
 
-    fun deleteSingleAddress(address: String) {
-        val currentUser = Firebase.auth.currentUser?.uid
+    fun deleteSingleAddress(addressId: String) {
         viewModelScope.launch {
-            val deleteAddress = repository.deleteUserAddress(currentUser!!, address)
+            val deleteAddress = repository.deleteUserAddress(currentUserId()!!, addressId)
             if (deleteAddress) {
                 newToastMessage("მისამართი წარმატებით წაიშალა")
             } else {
@@ -49,15 +50,14 @@ class UserAddressesViewModel : BaseViewModel() {
     }
 
     fun getUserAddresses() {
-        val currentUser = Firebase.auth.currentUser?.uid
         _showProgress.value = false
 
-        repository.getUserAddress(currentUser!!, object : FirestoreAddressesCallBack {
-            override fun onCallback(addresses: MutableList<*>) {
-                val allAddresses: MutableList<String> = ArrayList()
+        repository.getUserAddress(currentUserId()!!, object : FirestoreAddressesCallBack {
+            override fun onCallback(addresses: MutableList<Address>) {
+                val allAddresses: MutableList<Address> = ArrayList()
                 if (!addresses.isNullOrEmpty()) {
                     addresses.forEach {
-                        allAddresses.add(it.toString())
+                        allAddresses.add(Address(it.id, it.address, it.details))
                     }
                     _noAddress.value = false
                     _addressList.value = allAddresses

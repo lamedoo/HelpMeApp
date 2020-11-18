@@ -5,8 +5,6 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
 import com.lukakordzaia.helpmeapp.network.model.UserRegister
 import com.lukakordzaia.helpmeapp.network.model.UserUpdate
@@ -26,9 +24,7 @@ class UserProfileEditViewModel : BaseViewModel() {
 
 
     private fun getUserEditData(){
-        val currentUser = Firebase.auth.currentUser?.uid
-
-        repository.getUserEditData(currentUser!!, object: FirebaseCallBack {
+        repository.getUserEditData(currentUserId()!!, object: FirebaseCallBack {
             override fun onCallback(userData: MutableMap<String, Any>) {
                 _userDataList.value = UserRegister(
                     "${userData["avatar"]}",
@@ -42,17 +38,16 @@ class UserProfileEditViewModel : BaseViewModel() {
     }
 
     fun updateUserData(context: Context, name: String, lastName: String, email: String, number: String, filePath: Uri?) {
-        val currentUser = Firebase.auth.currentUser?.uid
         val userData = UserUpdate(email, name, lastName, number)
         viewModelScope.launch {
-            val update = currentUser?.let { repository.updateUserData(it, userData) }
+            val update = currentUserId()?.let { repository.updateUserData(it, userData) }
             if (update == true) {
                 newToastMessage("პროფილი წარმატებით განახლდა")
             }
         }
         viewModelScope.launch {
-            if (currentUser != null) {
-                repository.updateUserDataToRoom(context, currentUser, userData)
+            if (currentUserId() != null) {
+                repository.updateUserDataToRoom(context, currentUserId()!!, userData)
             }
         }
 
@@ -61,10 +56,10 @@ class UserProfileEditViewModel : BaseViewModel() {
                 val uploadAvatar = repository.uploadUserAvatar(filePath)
                 newToastMessage("სურათი წარმატებით აიტვირთა")
                 if (uploadAvatar.isNotEmpty()) {
-                    repository.saveUserAvatarToFirestore(currentUser!!, uploadAvatar)
+                    repository.saveUserAvatarToFirestore(currentUserId()!!, uploadAvatar)
                 }
                 viewModelScope.launch {
-                    repository.uploadUserAvatarToRoom(context, uploadAvatar, currentUser!!)
+                    repository.uploadUserAvatarToRoom(context, uploadAvatar, currentUserId()!!)
                 }
             }
 

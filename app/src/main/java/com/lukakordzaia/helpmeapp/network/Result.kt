@@ -1,5 +1,7 @@
 package com.lukakordzaia.helpmeapp.network
 
+import com.lukakordzaia.helpmeapp.network.model.Address
+
 sealed class Result<out T: Any> {
     data class Success<out T : Any>(val data: T) : Result<T>()
     data class Error(val exception: String) : Result<Nothing>()
@@ -10,5 +12,5 @@ interface FirebaseCallBack {
 }
 
 interface FirestoreAddressesCallBack {
-    fun onCallback(addresses: MutableList<*>)
+    fun onCallback(addresses: MutableList<Address>)
 }

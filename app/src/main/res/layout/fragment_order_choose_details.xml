@@ -10,37 +10,6 @@
     tools:background="?colorPrimary"
     tools:context=".ui.orderhelper.orderchoosedetails.OrderChooseDetailsFragment">
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/order_helper_date_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="10dp"-->
-<!--        android:background="@drawable/best_helpers_background"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/order_helper_date_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="როდის გსურთ შეკვეთა"-->
-<!--            android:textColor="?colorOnPrimary"-->
-<!--            android:textSize="18sp"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
-
-<!--        <DatePicker-->
-<!--            android:id="@+id/order_helper_date"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:datePickerMode="spinner"-->
-<!--            android:calendarViewShown="false"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/order_helper_date_title"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"/>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/order_helper_address_container"
         android:layout_width="match_parent"

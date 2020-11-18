@@ -34,10 +34,22 @@
         <action
             android:id="@+id/action_userAddressesFragment_to_addNewAddressFragment"
             app:destination="@id/addNewAddressFragment" />
+        <action
+            android:id="@+id/action_userAddressesFragment_to_singleUserAddressFragment"
+            app:destination="@id/singleUserAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewAddressFragment"
         android:name="com.lukakordzaia.helpmeapp.ui.shared.AddNewAddressFragment"
         android:label="ახალი მისამართი" />
+    <fragment
+        android:id="@+id/singleUserAddressFragment"
+        android:name="com.lukakordzaia.helpmeapp.ui.userprofile.useraddresses.singleuseraddress.SingleUserAddressFragment"
+        android:label="მისამართი"
+        tools:layout="@layout/fragment_single_user_address">
+        <argument
+            android:name="addressId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

@@ -20,10 +20,6 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
     private lateinit var viewModel: UserAddressesViewModel
     private lateinit var adapter: UserAddressesAdapter
 
-    companion object {
-        private const val AUTOCOMPLETE_REQUEST_CODE = 1
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Places.initialize(requireContext(), getString(R.string.google_maps_api_key))
@@ -35,22 +31,31 @@ class UserAddressesFragment : Fragment(R.layout.fragment_user_addresses) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserAddressesViewModel::class.java)
         viewModel.getUserAddresses()
-        adapter = UserAddressesAdapter(requireContext()) {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("ნამდვილად გსურთ მისამართის წაშლა?")
-                .setCancelable(false)
-                .setPositiveButton("დიახ") { _, _ ->
-                    viewModel.deleteSingleAddress(it)
-                    viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                        context.createToast(it)
-                    })
-                }
-                .setNegativeButton("არა") { dialog, _ ->
-                    dialog.dismiss()
-                }
-            val alert = builder.create()
-            alert.show()
-        }
+        adapter = UserAddressesAdapter(
+            requireContext(),
+            onDeleteClick = {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("ნამდვილად გსურთ მისამართის წაშლა?")
+                    .setCancelable(false)
+                    .setPositiveButton("დიახ") { _, _ ->
+                        viewModel.deleteSingleAddress(it)
+                        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+                            context.createToast(it)
+                        })
+                    }
+                    .setNegativeButton("არა") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                val alert = builder.create()
+                alert.show()
+            },
+            onItemClick = { addressId ->
+                viewModel.onSingleAddressPressed(addressId)
+                viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+                    navController(it)
+                })
+            }
+        )
         rv_addresses.adapter = adapter
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {

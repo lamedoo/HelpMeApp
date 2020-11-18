@@ -8,7 +8,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.lukakordzaia.helpmeapp.network.FirebaseCallBack
-import com.lukakordzaia.helpmeapp.network.FirestoreAddressesCallBack
 import com.lukakordzaia.helpmeapp.network.model.UserUpdate
 import com.lukakordzaia.helpmeapp.network.room.HelpMeAppDatabase
 import kotlinx.coroutines.tasks.await
@@ -16,8 +15,8 @@ import java.util.*
 
 class UserProfileEditRepository {
 
-    fun getUserEditData(userName: String, firebaseCallback: FirebaseCallBack) {
-        val docRef = Firebase.firestore.collection("users").document(userName)
+    fun getUserEditData(userId: String, firebaseCallback: FirebaseCallBack) {
+        val docRef = Firebase.firestore.collection("users").document(userId)
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed.", e)
@@ -34,11 +33,11 @@ class UserProfileEditRepository {
     }
 
 
-    suspend fun updateUserData(userName: String, userData: UserUpdate): Boolean {
+    suspend fun updateUserData(userId: String, userData: UserUpdate): Boolean {
         return try {
             Firebase.firestore
                 .collection("users")
-                .document(userName)
+                .document(userId)
                 .update(
                     mapOf(
                         "name" to userData.name,
@@ -54,13 +53,13 @@ class UserProfileEditRepository {
         }
     }
 
-    suspend fun updateUserDataToRoom(context: Context, userName: String, userData: UserUpdate) {
+    suspend fun updateUserDataToRoom(context: Context, userId: String, userData: UserUpdate) {
         HelpMeAppDatabase.getDatabase(context)?.getDao()?.updateUserData(
             userData.name!!,
             userData.lastName!!,
             userData.email!!,
             userData.phone!!,
-            userName
+            userId
         )
     }
 
@@ -81,16 +80,16 @@ class UserProfileEditRepository {
         }
     }
 
-    suspend fun uploadUserAvatarToRoom(context: Context, filepath: String, userName: String) {
-        HelpMeAppDatabase.getDatabase(context)?.getDao()?.updateUserAvatar(filepath, userName)
+    suspend fun uploadUserAvatarToRoom(context: Context, filepath: String, userId: String) {
+        HelpMeAppDatabase.getDatabase(context)?.getDao()?.updateUserAvatar(filepath, userId)
     }
 
 
-    suspend fun saveUserAvatarToFirestore(userName: String, userAvatar: String): Boolean {
+    suspend fun saveUserAvatarToFirestore(userId: String, userAvatar: String): Boolean {
         return try {
             Firebase.firestore
                 .collection("users")
-                .document(userName)
+                .document(userId)
                 .update(
                     mapOf(
                         "avatar" to userAvatar
@@ -100,57 +99,6 @@ class UserProfileEditRepository {
             true
         } catch (e: Exception) {
             false
-        }
-    }
-
-    suspend fun saveUserAddress(userName: String, address: String): Boolean {
-        return try {
-            Firebase.firestore
-                .collection("users")
-                .document(userName)
-                .collection("addresses")
-                .document(address)
-                .set(mapOf(
-                    "address" to address
-                ))
-                .await()
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-    suspend fun deleteUserAddress(userName: String, address: String): Boolean {
-        return try {
-            Firebase.firestore
-                .collection("users")
-                .document(userName)
-                .collection("addresses")
-                .document(address)
-                .delete()
-                .await()
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-    fun getUserAddress(userName: String, firestoreAddressesCallBack: FirestoreAddressesCallBack) {
-        val docRef = Firebase.firestore.collection("users").document(userName).collection("addresses")
-        docRef.addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                Log.w(ContentValues.TAG, "Listen failed.", e)
-                return@addSnapshotListener
-            }
-            if (snapshot != null ) {
-                val addresses = ArrayList<String>()
-                for (address in snapshot) {
-                    addresses.add(address.data["address"].toString())
-                }
-                firestoreAddressesCallBack.onCallback(addresses)
-            } else {
-                Log.d(ContentValues.TAG, "Current data: null")
-            }
         }
     }
 }

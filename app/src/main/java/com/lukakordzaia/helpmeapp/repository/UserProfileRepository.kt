@@ -17,13 +17,13 @@ import kotlinx.coroutines.launch
 
 class UserProfileRepository {
 
-    fun getUserDataFromRoom(usersDao: UsersDao, userName: String): LiveData<Users> {
-        return usersDao.getCurrentUserData(userName)
+    fun getUserDataFromRoom(usersDao: UsersDao, userId: String): LiveData<Users> {
+        return usersDao.getCurrentUserData(userId)
     }
 
-    fun getUserData(context: Context, userName: String, firebaseCallback: FirebaseCallBack) {
+    fun getUserData(context: Context, userId: String, firebaseCallback: FirebaseCallBack) {
 
-        val docRef = Firebase.firestore.collection("users").document(userName)
+        val docRef = Firebase.firestore.collection("users").document(userId)
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed.", e)
@@ -34,7 +34,7 @@ class UserProfileRepository {
                     firebaseCallback.onCallback(it)
                     val userData = Users(
                         0,
-                        userName,
+                        userId,
                         it["name"].toString(),
                         it["lastName"].toString(),
                         it["email"].toString(),
