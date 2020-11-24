@@ -24,32 +24,22 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(OrderChooseDetailsViewModel::class.java)
 
-//        order_helper_date.apply {
-//            this.minDate = (System.currentTimeMillis() + 48*60*60*1000)
-//            this.maxDate = (System.currentTimeMillis() + 7*24*60*60*1000)
-//        }
-
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
 
         viewModel.getUserAddresses()
         adapter = OrderChooseDetailsAdapter(requireContext()) {
-            viewModel.chosenAddressName(it)
+            viewModel.setChosenAddress(it)
         }
         rv_choose_address.adapter = adapter
-        viewModel.addressList.observe(viewLifecycleOwner, Observer {
-            adapter.setAddressList(it)
-        })
 
-        viewModel.addressNameNull()
-        viewModel.chosenAddress.observe(viewLifecycleOwner, EventObserver {address ->
-            if (!address.isNullOrBlank()) {
-                btn_order_helper_details_next.setOnClickListener {
-                    viewModel.saveChosenDateAddress(
-                        "$address"
-                    )
-                    viewModel.onSliderCompleted()
-                    viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                        navController(it)
-                    })
+        viewModel.chosenAddress.observe(viewLifecycleOwner, Observer {
+            if (it.isNotBlank()) {
+                adapter.chosenAddress(it)
+                btn_order_helper_details_next.setOnClickListener { _ ->
+                    viewModel.saveChosenDateAddress(it)
+                    viewModel.onNextButtonPressed()
                 }
             } else {
                 btn_order_helper_details_next.setOnClickListener {
@@ -58,11 +48,12 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
             }
         })
 
+        viewModel.addressList.observe(viewLifecycleOwner, Observer {
+            adapter.setAddressList(it)
+        })
+
         fab_user_address_add.setOnClickListener {
             viewModel.onAddAddressPressed()
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
 
         progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)

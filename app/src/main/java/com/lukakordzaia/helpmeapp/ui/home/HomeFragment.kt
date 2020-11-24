@@ -30,12 +30,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).showBottomNavigation()
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         adapter = HomeAdapter(requireContext()) { helperId ->
             viewModel.onHelpersPressed(helperId)
-
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
         rv_top_helpers.loadSkeleton(R.layout.rv_top_helpers_item)
         rv_top_helpers.adapter = adapter
@@ -68,9 +69,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val id = item.itemId
         if (id == R.id.home_settings) {
             viewModel.onSettingsPressed()
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
             return true
         }
 

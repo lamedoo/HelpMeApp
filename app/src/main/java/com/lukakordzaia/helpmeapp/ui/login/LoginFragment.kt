@@ -21,10 +21,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        viewModel.onTokenExists()
+
         viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
             navController(it)
         })
+
+        viewModel.onTokenExists()
 
         btn_login.setOnClickListener {
             checkLoginInfo()
@@ -36,14 +38,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.userLogin(FirebaseAuth.getInstance(), email, password)
         }
 
-        viewModel.loginSuccess.observe(viewLifecycleOwner, Observer { success ->
-            if (success) {
-                viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                    navController(it)
-                })
-            }
-        })
-
         viewModel.loginError.observe(viewLifecycleOwner, Observer {
             login_title.text = it
             login_title.setTextColor(Color.RED)
@@ -51,9 +45,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         btn_goto_register.setOnClickListener {
             viewModel.onRegisterPressed()
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
     }
 

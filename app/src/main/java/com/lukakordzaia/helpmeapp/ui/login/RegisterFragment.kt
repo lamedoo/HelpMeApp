@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.lukakordzaia.helpmeapp.R
@@ -19,6 +18,13 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            context.createToast(it)
+        })
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
 
         btn_register.setOnClickListener {
             signUpUser()
@@ -39,21 +45,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 phone
             )
         }
-
-        viewModel.registerSuccess.observe(viewLifecycleOwner, Observer {success ->
-            if (success) {
-                viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                    context.createToast(it)
-                })
-                viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                    navController(it)
-                })
-            } else {
-                viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                    context.createToast(it)
-                })
-            }
-        })
     }
 
     private fun signUpUser() {

@@ -30,6 +30,10 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
 
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         viewModel.showProgress.observe(viewLifecycleOwner, Observer {
             pb_user_profile.setVisibleOrGone(it)
             if (it == false) {
@@ -38,9 +42,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             }
         })
 
-        viewModel.getUserDataFromRoom(requireContext()).observe(
-            viewLifecycleOwner,
-            Observer { users ->
+        viewModel.getUserDataFromRoom(requireContext()).observe(viewLifecycleOwner, Observer { users ->
                 if (users != null) {
                     if (!users.avatar.isNullOrEmpty()) {
                         Picasso.get().load(users.avatar).into(iv_user_profile_avatar)
@@ -65,9 +67,6 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
 
         user_profile_address_container.setOnClickListener {
             viewModel.onAddressesPressed()
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
     }
 
@@ -80,9 +79,6 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         val id = item.itemId
         if (id == R.id.user_edit) {
             viewModel.onUserEditPressed()
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
             return true
         } else if (id == R.id.user_logout) {
             viewModel.removeSaveToken()

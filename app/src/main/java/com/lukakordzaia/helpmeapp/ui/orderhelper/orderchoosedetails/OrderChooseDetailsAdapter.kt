@@ -14,13 +14,18 @@ import kotlinx.android.synthetic.main.rv_choose_address_item.view.*
 
 class OrderChooseDetailsAdapter(
     private val context: Context,
-    private val onItemClick: (name: String?) -> Unit
+    private val onItemClick: (address: String) -> Unit
 ) : RecyclerView.Adapter<OrderChooseDetailsAdapter.ViewHolder>() {
     private var list: List<Address> = ArrayList()
-    private var mPosition = -1
+    private var chosenAddress: String = ""
 
     fun setAddressList(list: List<Address>) {
         this.list = list
+        notifyDataSetChanged()
+    }
+
+    fun chosenAddress(address: String) {
+        this.chosenAddress = address
         notifyDataSetChanged()
     }
 
@@ -42,22 +47,22 @@ class OrderChooseDetailsAdapter(
 
         holder.addressNameTextView.text = listModel.address
 
+        val isChosen = listModel.id == chosenAddress
+
         if (listModel.details != "null") {
             holder.addressDetailsTextView.text = listModel.details
         } else {
             holder.addressDetailsTextView.text = "დაამატეთ მისამართის დეტალები"
         }
 
-        if (mPosition == position) {
+        if (isChosen) {
             holder.addressRootConstraint.background = ResourcesCompat.getDrawable(context.resources, R.drawable.chosen_address_item_background, null)
-            onItemClick(listModel.address)
         } else {
             holder.addressRootConstraint.background = ResourcesCompat.getDrawable(context.resources, R.drawable.choose_address_item_background, null)
         }
 
         holder.addressRootConstraint.setOnClickListener {
-            mPosition = position
-            notifyDataSetChanged()
+            onItemClick(listModel.id)
         }
     }
 

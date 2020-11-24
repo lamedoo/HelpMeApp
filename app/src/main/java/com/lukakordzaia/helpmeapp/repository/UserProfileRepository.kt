@@ -32,6 +32,13 @@ class UserProfileRepository {
             if (snapshot != null && snapshot.exists()) {
                 snapshot.data?.let {
                     firebaseCallback.onCallback(it)
+
+                    val avatar = if (it["avatar"].toString().isNotEmpty()) {
+                        it["avatar"].toString()
+                    } else {
+                        null
+                    }
+
                     val userData = Users(
                         0,
                         userId,
@@ -39,7 +46,7 @@ class UserProfileRepository {
                         it["lastName"].toString(),
                         it["email"].toString(),
                         it["phone"].toString(),
-                        null
+                        avatar
                     )
                     CoroutineScope(Dispatchers.IO).launch {
                         HelpMeAppDatabase.getDatabase(context)?.getDao()?.insertUserData(userData)

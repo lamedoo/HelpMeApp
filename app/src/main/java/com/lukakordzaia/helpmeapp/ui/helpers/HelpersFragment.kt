@@ -30,11 +30,12 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HelpersViewModel::class.java)
 
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         adapter = HelpersAdapter(requireContext()) { helperId ->
             viewModel.onHelperPressed(helperId)
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
         rv_helpers.loadSkeleton(R.layout.rv_helpers_item)
         rv_helpers.adapter = adapter

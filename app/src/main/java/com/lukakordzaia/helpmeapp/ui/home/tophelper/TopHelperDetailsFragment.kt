@@ -30,6 +30,11 @@ class TopHelperDetailsFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(TopHelperDetailsViewModel::class.java)
+
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         val helperId = args.helperId
         viewModel.getTopHelper(helperId)
 
@@ -52,9 +57,6 @@ class TopHelperDetailsFragment : BottomSheetDialogFragment() {
 
         btn_top_helper_details_order.setOnClickListener {
             viewModel.onOrderPressed(helperId, viewModel.helperData.value!!.name)
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
 
     }

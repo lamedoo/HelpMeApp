@@ -21,6 +21,11 @@ class SingleUserAddressFragment : Fragment(R.layout.fragment_single_user_address
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SingleUserAddressViewModel::class.java)
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            context.createToast(it)
+        })
+
         val addressId = args.addressId
 
         viewModel.getSingleAddress(addressId)
@@ -36,9 +41,6 @@ class SingleUserAddressFragment : Fragment(R.layout.fragment_single_user_address
                 viewModel.addAddressDetails(addressId, v.text.toString())
                 v.clearFocus()
                 v.hideKeyboard()
-                viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                    context.createToast(it)
-                })
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false

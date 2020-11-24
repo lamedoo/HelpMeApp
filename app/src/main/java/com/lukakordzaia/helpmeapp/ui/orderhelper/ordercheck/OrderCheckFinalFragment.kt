@@ -20,6 +20,13 @@ class OrderCheckFinalFragment : Fragment(R.layout.fragment_order_check_final) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(OrderCheckFinalViewModel::class.java)
 
+        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            context.createToast(it)
+        })
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         viewModel.orderDetails.observe(viewLifecycleOwner, Observer {
             tv_check_final_date.text = it.orderDate
             tv_check_final_address.text = it.orderAddress
@@ -38,17 +45,10 @@ class OrderCheckFinalFragment : Fragment(R.layout.fragment_order_check_final) {
             }
         })
 
-            check_final_confirm.onSlideCompleteListener = object : OnSlideCompleteListener {
-                override fun onSlideComplete(view: SlideToActView) {
-                    viewModel.createNewOrder()
-                    viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                        context.createToast(it)
-                    })
-                    viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                        navController(it)
-                    })
-                }
-
+        check_final_confirm.onSlideCompleteListener = object : OnSlideCompleteListener {
+            override fun onSlideComplete(view: SlideToActView) {
+                viewModel.createNewOrder()
             }
+        }
     }
 }

@@ -21,6 +21,14 @@ class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_serv
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(OrderChooseServicesViewModel::class.java)
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            context.createToast(it)
+        })
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         adapter = OrderChooseServicesAdapter(requireContext()) { serviceName, amount ->
             viewModel.getServiceAmounts(serviceName, amount)
         }
@@ -33,12 +41,6 @@ class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_serv
 
         btn_order_helper_services_next.setOnClickListener {
             viewModel.checkServices()
-            viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-                context.createToast(it)
-            })
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
 
         progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)

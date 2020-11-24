@@ -31,6 +31,11 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HelperDetailsViewModel::class.java)
+
+        viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
+            navController(it)
+        })
+
         val helperId = args.helperId
 
         viewModel.getSingleHelper(helperId)
@@ -55,9 +60,6 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
 
         btn_helper_details_order.setOnClickListener {
             viewModel.onOrderPressed(helperId, viewModel.helperData.value!!.name)
-            viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
-                navController(it)
-            })
         }
 
         progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)

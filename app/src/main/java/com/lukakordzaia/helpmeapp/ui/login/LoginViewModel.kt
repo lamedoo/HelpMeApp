@@ -11,10 +11,8 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : BaseViewModel() {
     private val repository = AuthRepository()
-    private val _loginSuccess = MutableLiveData<Boolean>()
     private val _loginError = MutableLiveData<String>()
 
-    var loginSuccess: LiveData<Boolean> = _loginSuccess
     var loginError: LiveData<String> = _loginError
 
     fun onTokenExists() {
@@ -31,12 +29,10 @@ class LoginViewModel : BaseViewModel() {
         viewModelScope.launch {
             val result = repository.authenticate(auth, email, password)
             if ( result != null) {
-                _loginSuccess.value = true
                 navigateToNewFragment(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                 val user = result.user!!.uid
                 AppPreferences.user_token = user
             } else {
-                _loginSuccess.value = false
                 _loginError.value = "სცადეთ თავიდან"
             }
         }
