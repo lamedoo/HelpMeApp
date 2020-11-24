@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.utils.EventObserver
+import com.lukakordzaia.helpmeapp.utils.createToast
 import com.lukakordzaia.helpmeapp.utils.navController
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
@@ -33,6 +34,9 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         viewModel.navigateScreen.observe(viewLifecycleOwner, EventObserver {
             navController(it)
         })
+        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            context.createToast(it)
+        })
 
         adapter = HelpersAdapter(requireContext()) { helperId ->
             viewModel.onHelperPressed(helperId)
@@ -54,6 +58,10 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         btn_helpers_pick_date.setOnClickListener {
             viewModel.onDatePickerPressed(requireContext())
         }
+
+        viewModel.pickedDate.observe(viewLifecycleOwner, Observer {
+            tv_helpers_picked_date.text = it
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

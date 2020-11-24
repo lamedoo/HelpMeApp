@@ -19,9 +19,11 @@ class HelpersViewModel : BaseViewModel() {
     private val repository = HelpersRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _helpersList =  MutableLiveData<List<Helpers>>()
+    private val _pickedDate = MutableLiveData<String>("აირჩიეთ თარიღი")
 
     val showProgress : LiveData<Boolean> = _showProgress
     val helpersList : LiveData<List<Helpers>> = _helpersList
+    val pickedDate : LiveData<String> = _pickedDate
 
     init {
         getAllHelpers()
@@ -35,6 +37,7 @@ class HelpersViewModel : BaseViewModel() {
 
         val dpd = DatePickerDialog(context, { view, yearCurrent, monthOfYear, dayOfMonth ->
             AppPreferences.order_date = "$dayOfMonth/${monthOfYear + 1}/$yearCurrent"
+            _pickedDate.value = "$dayOfMonth/${monthOfYear + 1}/$yearCurrent"
         }, year, month, day)
 
         dpd.apply {
@@ -49,7 +52,11 @@ class HelpersViewModel : BaseViewModel() {
     }
 
     fun onHelperPressed(helperId: Int) {
-        navigateToNewFragment(HelpersFragmentDirections.actionHelpersFragmentToHelperDetailsFragment(helperId))
+        if (pickedDate.value == "აირჩიეთ თარიღი") {
+            newToastMessage("გთხოვთ ჯერ აირჩიოთ თარიღი")
+        } else {
+            navigateToNewFragment(HelpersFragmentDirections.actionHelpersFragmentToHelperDetailsFragment(helperId))
+        }
     }
 
     fun getAllHelpers() {
