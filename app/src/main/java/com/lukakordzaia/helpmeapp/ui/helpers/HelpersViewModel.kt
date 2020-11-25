@@ -36,7 +36,6 @@ class HelpersViewModel : BaseViewModel() {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         val dpd = DatePickerDialog(context, { view, yearCurrent, monthOfYear, dayOfMonth ->
-            AppPreferences.order_date = "$dayOfMonth/${monthOfYear + 1}/$yearCurrent"
             _pickedDate.value = "$dayOfMonth/${monthOfYear + 1}/$yearCurrent"
         }, year, month, day)
 
@@ -51,11 +50,17 @@ class HelpersViewModel : BaseViewModel() {
         }
     }
 
-    fun onHelperPressed(helperId: Int) {
+    fun onHelperPressed(helperId: Int, cleaningOption: String, orderAddress: String, orderDate: String, serviceCount: IntArray) {
         if (pickedDate.value == "აირჩიეთ თარიღი") {
             newToastMessage("გთხოვთ ჯერ აირჩიოთ თარიღი")
         } else {
-            navigateToNewFragment(HelpersFragmentDirections.actionHelpersFragmentToHelperDetailsFragment(helperId))
+            navigateToNewFragment(HelpersFragmentDirections.actionHelpersFragmentToHelperDetailsFragment(
+                helperId,
+                cleaningOption,
+                orderAddress,
+                orderDate,
+                serviceCount
+            ))
         }
     }
 

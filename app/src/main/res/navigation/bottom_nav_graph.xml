@@ -34,6 +34,15 @@
             android:id="@+id/action_helpersFragment_to_helperDetailsFragment"
             app:destination="@id/helperDetailsFragment"
             app:popUpTo="@id/helpersFragment" />
+        <argument
+            android:name="cleaningOption"
+            app:argType="string" />
+        <argument
+            android:name="orderAddress"
+            app:argType="string" />
+        <argument
+            android:name="servicesCount"
+            app:argType="integer[]" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
@@ -52,9 +61,18 @@
         <action
             android:id="@+id/action_helperDetailsFragment_to_orderCheckFinalFragment"
             app:destination="@id/orderCheckFinalFragment" />
-        <action
-            android:id="@+id/action_orderChooseDetailsFragment_to_userAddressesFragment"
-            app:destination="@id/userAddressesFragment" />
+        <argument
+            android:name="cleaningOption"
+            app:argType="string" />
+        <argument
+            android:name="orderAddress"
+            app:argType="string" />
+        <argument
+            android:name="orderDate"
+            app:argType="string"/>
+        <argument
+            android:name="servicesCount"
+            app:argType="integer[]" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -132,6 +150,9 @@
         <action
             android:id="@+id/action_orderChooseDetailsFragment_to_addNewAddressFragment"
             app:destination="@id/addNewAddressFragment" />
+        <argument
+            android:name="cleaningOption"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/orderChooseServicesFragment"
@@ -155,6 +176,24 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
+        <argument
+            android:name="cleaningOption"
+            app:argType="string" />
+        <argument
+            android:name="orderAddress"
+            app:argType="string" />
+        <argument
+            android:name="orderDate"
+            app:argType="string"/>
+        <argument
+            android:name="orderHelper"
+            app:argType="string" />
+        <argument
+            android:name="orderHelperId"
+            app:argType="string" />
+        <argument
+            android:name="servicesCount"
+            app:argType="integer[]" />
     </fragment>
     <dialog
         android:id="@+id/topHelperDetailsFragment"

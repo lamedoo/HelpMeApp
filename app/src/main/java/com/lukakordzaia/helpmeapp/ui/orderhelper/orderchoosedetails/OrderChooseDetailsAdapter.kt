@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.rv_choose_address_item.view.*
 
 class OrderChooseDetailsAdapter(
     private val context: Context,
-    private val onItemClick: (address: String) -> Unit
+    private val onItemClick: (address: Address) -> Unit
 ) : RecyclerView.Adapter<OrderChooseDetailsAdapter.ViewHolder>() {
     private var list: List<Address> = ArrayList()
     private var chosenAddress: String = ""
@@ -62,7 +62,7 @@ class OrderChooseDetailsAdapter(
         }
 
         holder.addressRootConstraint.setOnClickListener {
-            onItemClick(listModel.id)
+            onItemClick(listModel)
         }
     }
 

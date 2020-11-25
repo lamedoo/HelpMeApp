@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.createToast
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.order_fragments_progress_dots.*
 class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_services) {
     private lateinit var viewModel: OrderChooseServicesViewModel
     private lateinit var adapter: OrderChooseServicesAdapter
+    private val args: OrderChooseServicesFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +42,7 @@ class OrderChooseServicesFragment : Fragment(R.layout.fragment_order_choose_serv
         })
 
         btn_order_helper_services_next.setOnClickListener {
-            viewModel.checkServices()
+            viewModel.checkServices(args.cleaningOption, args.orderAddress)
         }
 
         progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)

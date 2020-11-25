@@ -8,7 +8,6 @@ import com.lukakordzaia.helpmeapp.network.Result
 import com.lukakordzaia.helpmeapp.network.model.Helpers
 import com.lukakordzaia.helpmeapp.repository.HelperDetailRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
-import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.coroutines.launch
 
 class HelperDetailsViewModel : BaseViewModel() {
@@ -19,15 +18,15 @@ class HelperDetailsViewModel : BaseViewModel() {
     val showProgress : LiveData<Boolean> = _showProgress
     val helperData : LiveData<Helpers> = _helperData
 
-    init {
-        AppPreferences.helper_name = ""
-        AppPreferences.helper_id = ""
-    }
-
-    fun onOrderPressed(helperId: Int, helperName: String) {
-        navigateToNewFragment(HelperDetailsFragmentDirections.actionHelperDetailsFragmentToOrderCheckFinalFragment())
-        AppPreferences.helper_name = helperName
-        AppPreferences.helper_id = helperId.toString()
+    fun onOrderPressed(helperId: Int, helperName: String, cleaningOption: String, orderAddress: String, orderDate: String, serviceCount: IntArray) {
+        navigateToNewFragment(HelperDetailsFragmentDirections.actionHelperDetailsFragmentToOrderCheckFinalFragment(
+            cleaningOption,
+            orderAddress,
+            orderDate,
+            helperName,
+            helperId.toString(),
+            serviceCount
+        ))
     }
 
     fun getSingleHelper(helperId: Int) {

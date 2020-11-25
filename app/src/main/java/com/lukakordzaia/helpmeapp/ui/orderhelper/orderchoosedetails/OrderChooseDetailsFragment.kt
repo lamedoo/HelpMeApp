@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.ui.MainActivity
 import com.lukakordzaia.helpmeapp.utils.EventObserver
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.order_fragments_progress_dots.*
 class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_details) {
     private lateinit var viewModel: OrderChooseDetailsViewModel
     private lateinit var adapter: OrderChooseDetailsAdapter
+    private val args: OrderChooseDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,11 +37,10 @@ class OrderChooseDetailsFragment : Fragment(R.layout.fragment_order_choose_detai
         rv_choose_address.adapter = adapter
 
         viewModel.chosenAddress.observe(viewLifecycleOwner, Observer {
-            if (it.isNotBlank()) {
-                adapter.chosenAddress(it)
+            if (it != null) {
+                adapter.chosenAddress(it.id)
                 btn_order_helper_details_next.setOnClickListener { _ ->
-                    viewModel.saveChosenDateAddress(it)
-                    viewModel.onNextButtonPressed()
+                    viewModel.onNextButtonPressed(args.cleaningOption, it.address)
                 }
             } else {
                 btn_order_helper_details_next.setOnClickListener {

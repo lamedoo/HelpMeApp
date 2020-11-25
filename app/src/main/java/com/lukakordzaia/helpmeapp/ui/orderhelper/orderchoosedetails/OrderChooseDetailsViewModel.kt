@@ -6,34 +6,29 @@ import com.lukakordzaia.helpmeapp.network.FirestoreAddressesCallBack
 import com.lukakordzaia.helpmeapp.network.model.Address
 import com.lukakordzaia.helpmeapp.repository.UserAddressRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
-import com.lukakordzaia.helpmeapp.utils.AppPreferences
 
 class OrderChooseDetailsViewModel : BaseViewModel() {
     private val repository = UserAddressRepository()
     private val _showProgress = MutableLiveData<Boolean>()
     private val _noAddress = MutableLiveData<Boolean>()
     private val _addressList = MutableLiveData<List<Address>>()
-    private val _chosenAddress = MutableLiveData<String>("")
+    private val _chosenAddress = MutableLiveData<Address>(null)
 
     val showProgress: LiveData<Boolean> = _showProgress
     val noAddress: LiveData<Boolean> = _noAddress
     val addressList: LiveData<List<Address>> = _addressList
-    val chosenAddress: LiveData<String> = _chosenAddress
+    val chosenAddress: LiveData<Address> = _chosenAddress
 
-    fun setChosenAddress(address: String) {
+    fun setChosenAddress(address: Address) {
         _chosenAddress.value = address
-    }
-
-    fun saveChosenDateAddress(address: String) {
-        AppPreferences.order_address = address
     }
 
     fun onAddAddressPressed() {
         navigateToNewFragment(OrderChooseDetailsFragmentDirections.actionOrderChooseDetailsFragmentToAddNewAddressFragment())
     }
 
-    fun onNextButtonPressed() {
-        navigateToNewFragment(OrderChooseDetailsFragmentDirections.actionOrderChooseDetailsFragmentToOrderChooseServicesFragment())
+    fun onNextButtonPressed(cleaningOption: String, orderAddress: String) {
+        navigateToNewFragment(OrderChooseDetailsFragmentDirections.actionOrderChooseDetailsFragmentToOrderChooseServicesFragment(cleaningOption, orderAddress))
     }
 
     fun getUserAddresses() {

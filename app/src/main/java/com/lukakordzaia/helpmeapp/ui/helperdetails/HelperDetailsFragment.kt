@@ -59,7 +59,7 @@ class HelperDetailsFragment : Fragment(R.layout.fragment_helper_details) {
         })
 
         btn_helper_details_order.setOnClickListener {
-            viewModel.onOrderPressed(helperId, viewModel.helperData.value!!.name)
+            viewModel.onOrderPressed(helperId, viewModel.helperData.value!!.name, args.cleaningOption, args.orderAddress, args.orderDate, args.servicesCount)
         }
 
         progress_dot_1.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.teal_700)

@@ -20,16 +20,8 @@ class HomeViewModel: BaseViewModel() {
     val topHelpersList : LiveData<List<Helpers>> = _topHelpersList
 
     init {
-        AppPreferences.helper_name = ""
         AppPreferences.helper_id = ""
-        AppPreferences.order_date = ""
-        AppPreferences.order_address = ""
-        AppPreferences.service_kitchen = 0
-        AppPreferences.service_living = 0
-        AppPreferences.service_studio = 0
-        AppPreferences.service_bedroom = 0
-        AppPreferences.service_bathroom = 0
-        AppPreferences.service_office = 0
+        AppPreferences.helper_name = ""
     }
 
     fun onHelpersPressed(helperId: Int) {
@@ -37,8 +29,7 @@ class HomeViewModel: BaseViewModel() {
     }
 
     fun onChooseServicesPressed(cleaningOption: String) {
-        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToOrderChooseDetailsFragment())
-        AppPreferences.order_cleaning_option = cleaningOption
+        navigateToNewFragment(HomeFragmentDirections.actionHomeFragmentToOrderChooseDetailsFragment(cleaningOption))
     }
 
     fun onSettingsPressed() {

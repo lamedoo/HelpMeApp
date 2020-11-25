@@ -8,7 +8,6 @@ import com.google.firebase.ktx.Firebase
 import com.lukakordzaia.helpmeapp.network.model.OrderDetails
 import com.lukakordzaia.helpmeapp.repository.OrderFinalRepository
 import com.lukakordzaia.helpmeapp.ui.baseclasses.BaseViewModel
-import com.lukakordzaia.helpmeapp.utils.AppPreferences
 import kotlinx.coroutines.launch
 
 class OrderCheckFinalViewModel : BaseViewModel() {
@@ -17,22 +16,8 @@ class OrderCheckFinalViewModel : BaseViewModel() {
 
     val orderDetails: LiveData<OrderDetails> = _orderDetails
 
-    init {
-        _orderDetails.value = OrderDetails(
-            AppPreferences.order_cleaning_option,
-            AppPreferences.order_date,
-            AppPreferences.order_address,
-            AppPreferences.helper_name,
-            AppPreferences.helper_id,
-            OrderDetails.Services(
-                AppPreferences.service_kitchen,
-                AppPreferences.service_living,
-                AppPreferences.service_studio,
-                AppPreferences.service_bedroom,
-                AppPreferences.service_bathroom,
-                AppPreferences.service_office
-            )
-        )
+    fun finalOrderDetails(orderDetails: OrderDetails) {
+        _orderDetails.value = orderDetails
     }
 
     fun createNewOrder() {

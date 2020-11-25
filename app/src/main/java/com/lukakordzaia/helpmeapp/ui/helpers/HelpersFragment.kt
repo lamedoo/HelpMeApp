@@ -9,6 +9,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.lukakordzaia.helpmeapp.R
 import com.lukakordzaia.helpmeapp.utils.EventObserver
 import com.lukakordzaia.helpmeapp.utils.createToast
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_helpers.*
 class HelpersFragment : Fragment(R.layout.fragment_helpers) {
     private lateinit var viewModel: HelpersViewModel
     private lateinit var adapter: HelpersAdapter
+    private val args: HelpersFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class HelpersFragment : Fragment(R.layout.fragment_helpers) {
         })
 
         adapter = HelpersAdapter(requireContext()) { helperId ->
-            viewModel.onHelperPressed(helperId)
+            viewModel.onHelperPressed(helperId, args.cleaningOption, args.orderAddress, viewModel.pickedDate.value!!, args.servicesCount)
         }
         rv_helpers.loadSkeleton(R.layout.rv_helpers_item)
         rv_helpers.adapter = adapter
